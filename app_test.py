@@ -58,4 +58,17 @@ if file_path is not None:
     sizes = [class_a_percentage, class_b_percentage, class_c_percentage]
     ax1.pie(sizes, labels=labels, autopct='%1.1f%%', startangle=90)
     ax1.axis('equal')
-    ax1.set_title
+    ax1.set_title('EN 15251 COMFORT HOURS')
+
+    labels = ['Comfort', 'Discomfort']
+    sizes = [comfort_percentage, discomfort_percentage]
+    colors = ['green', 'red']
+    ax2.pie(sizes, labels=labels, colors=colors, autopct='%1.1f%%', startangle=90)
+    ax2.axis('equal')
+    ax2.set_title('EN 15251 COMFORT VS DISCOMFORT')
+
+    # Add a title to one of the Axes
+    ax1.set_title('Custom Title', loc='left')
+
+    # Display the plots using Streamlit
+    st.pyplot(fig)
