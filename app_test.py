@@ -62,7 +62,7 @@ if file_path is not None:
     labels = ['Comfort', 'Discomfort']
     sizes = [comfort_percentage, discomfort_percentage]
     colors = ['green', 'red']
-    ax2.pie(sizes, labels=labels, colors=colors, autopct='%1.1f%%', startangle=90)
+    ax2.pie(sizes, labels=labels, colors=colors, autopct='%1.1f%%', startangle=90,pctdistance=0.85)
     ax2.axis('equal')
     ax2.set_title('EN 15251 COMFORT VS DISCOMFORT')
 
