@@ -55,14 +55,14 @@ if file_path is not None:
 
     labels = ['Class A', 'Class B', 'Class C']
     sizes = [class_a_percentage, class_b_percentage, class_c_percentage]
-    ax1.pie(sizes, labels=labels, autopct='%1.1f%%', startangle=90)
+    ax1.pie(sizes, labels=labels, autopct='%1.1f%%', startangle=90, pctdistance=0.85)
     ax1.axis('equal')
     ax1.set_title('EN 15251 COMFORT HOURS')
 
     labels = ['Comfort', 'Discomfort']
     sizes = [comfort_percentage, discomfort_percentage]
     colors = ['green', 'red']
-    ax2.pie(sizes, labels=labels, colors=colors, autopct='%1.1f%%', startangle=90,pctdistance=0.85)
+    ax2.pie(sizes, labels=labels, colors=colors, autopct='%1.1f%%', startangle=90, pctdistance=0.85)
     ax2.axis('equal')
     ax2.set_title('EN 15251 COMFORT VS DISCOMFORT')
 
