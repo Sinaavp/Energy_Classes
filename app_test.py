@@ -45,30 +45,30 @@ if uploaded_file is not None:
 
     # Temperature classification functions
     def class_a(IntTemp_Instant, Average_Daily_Temp):
-    lower_limit = max(18.8 - 2 + 0.33 * Average_Daily_Temp, 21)
-    upper_limit = max(18.8 + 2 + 0.33 * Average_Daily_Temp, 23)
-    if IntTemp_Instant >= lower_limit and IntTemp_Instant <= upper_limit:
-        return 1
-    else:
-        return 0
+        lower_limit = max(18.8 - 2 + 0.33 * Average_Daily_Temp, 21)
+        upper_limit = max(18.8 + 2 + 0.33 * Average_Daily_Temp, 23)
+        if IntTemp_Instant >= lower_limit and IntTemp_Instant <= upper_limit:
+            return 1
+        else:
+            return 0
         pass
     
     def class_b(IntTemp_Instant, Average_Daily_Temp):
-    lower_limit = max(18.8 - 3 + 0.33 * Average_Daily_Temp, 20)
-    upper_limit = max(18.8 + 3 + 0.33 * Average_Daily_Temp, 24)
-    if IntTemp_Instant >= lower_limit and IntTemp_Instant <= upper_limit:
-        return 1
-    else:
-        return 0
+        lower_limit = max(18.8 - 3 + 0.33 * Average_Daily_Temp, 20)
+        upper_limit = max(18.8 + 3 + 0.33 * Average_Daily_Temp, 24)
+        if IntTemp_Instant >= lower_limit and IntTemp_Instant <= upper_limit:
+            return 1
+        else:
+            return 0
         pass
     
     def class_c(IntTemp_Instant, Average_Daily_Temp):
-    lower_limit = max(18.8 - 4 + 0.33 * Average_Daily_Temp, 19)
-    upper_limit = max(18.8 + 4 + 0.33 * Average_Daily_Temp, 25)
-    if IntTemp_Instant >= lower_limit and IntTemp_Instant <= upper_limit:
-        return 1
-    else:
-        return 0
+        lower_limit = max(18.8 - 4 + 0.33 * Average_Daily_Temp, 19)
+        upper_limit = max(18.8 + 4 + 0.33 * Average_Daily_Temp, 25)
+        if IntTemp_Instant >= lower_limit and IntTemp_Instant <= upper_limit:
+            return 1
+        else:
+            return 0
         pass
 
     df = df.dropna()
