@@ -3,7 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # File Upload
-uploaded_file = st.file_uploader("Upload a CSV file", type="csv")
+uploaded_file = st.file_uploader("Upload a file", type=["csv", "txt"])
 
 if uploaded_file is not None:
     # Read CSV file
