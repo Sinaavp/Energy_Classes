@@ -98,12 +98,14 @@ if uploaded_file is not None:
         colors2 = ['green', 'red']
 
         if all(size != 0 for size in sizes1) and all(size != 0 for size in sizes2):
-            ax1.pie(sizes1, labels=labels1, autopct='%1.1f%%', startangle=90,pctdistance=0.85, labeldistance=0.3)
+            ax1.pie(sizes1, labels= None, autopct='%1.1f%%', startangle=90,pctdistance=0.85)
+            ax1.legend(labels1, loc="best")
             ax1.axis('equal')
             ax1.set_title('EN 15251 COMFORT HOURS - {}'.format(month))
             centre_circle1 = plt.Circle((0, 0), 0.70, fc='white')
             ax1.add_artist(centre_circle1)
-            ax2.pie(sizes2, labels=labels2, colors=colors2, autopct='%1.1f%%', startangle=90,pctdistance=0.85, labeldistance=0.3)
+            ax2.pie(sizes2, labels= None, colors=colors2, autopct='%1.1f%%', startangle=90,pctdistance=0.85)
+            ax2.legend(labels2, loc="best")
             ax2.axis('equal')
             ax2.set_title('EN 15251 COMFORT VS DISCOMFORT - {}'.format(month))
             centre_circle2 = plt.Circle((0, 0), 0.70, fc='white')
