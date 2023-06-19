@@ -1,14 +1,11 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
-from bokeh.plotting import figure
-from bokeh.models import ZoomInTool, ZoomOutTool
-from streamlit_bokeh_events import streamlit_bokeh_events
 
 st.title("ENERGY LAB")
 st.sidebar.title("Navigation")
-uploaded_file = st.sidebar.file_uploader("Upload a file", type=["csv", "txt"])
 options = st.sidebar.radio("pages", options=["Comfort EN", "Temperature", "Radiation", "Relative humidity", "Interior Temperature"])
+uploaded_file = st.sidebar.file_uploader("Upload a file", type=["csv", "txt"])
 
 if uploaded_file is not None:
     df = pd.read_csv(uploaded_file, delimiter='\t', header=[0, 1])
@@ -34,11 +31,12 @@ if uploaded_file is not None:
         ('GlobRad', 'Average'),
         ('GlobRad', 'Max'),
         ('IntTemp', 'Instant'),
-        ('BatteryTens', 'Instant')
+        ('BatteryTens', 'Instant'),
+        ('x', 'x')
     ]
 
     df.columns = pd.MultiIndex.from_tuples(new_columns)
-    df.drop(('IntTemp', 'Instant'), axis=1, inplace=True)
+    df.drop(('x', 'x'), axis=1, inplace=True)
     df.columns = df.columns.map('_'.join)
     df.index = pd.to_datetime(df.index)
     df['Month'] = df.index.month_name()
@@ -84,9 +82,7 @@ if uploaded_file is not None:
             class_b_percentage = (length_class_b / total_hours) * 100
             class_c_percentage = (length_class_c / total_hours) * 100
 
-            fig, axs = plt.subplots(1, 2, figsize=(15, 7.5))
-            ax1, ax2 = axs
-
+            fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15, 7.5))
             labels1 = ['Class A', 'Class B', 'Class C']
             sizes1 = [class_a_percentage, class_b_percentage, class_c_percentage]
             labels2 = ['Comfort', 'Discomfort']
@@ -122,27 +118,5 @@ if uploaded_file is not None:
             comfort(df)
         else:
             st.write("Please upload a file.")
-
-    if options == "Temperature":
-        if 'df' in locals():
-            if ('AirTemp_Average') in df.columns:
-                st.subheader("Temperature Line Graph")
-
-                # Create a Bokeh figure
-                p = figure(title="Temperature Line Graph", x_axis_label='Date', y_axis_label='Temperature (°C)',
-                           plot_width=800, plot_height=400, x_axis_type='datetime')
-                p.add_tools(ZoomInTool(), ZoomOutTool())
-
-                # Plot the average temperature
-                p.line(df.index, df['AirTemp_Average'], line_width=2, color='blue', legend_label='Average Temperature')
-
-                # Plot the minimum and maximum temperature
-                p.line(df.index, df['AirTemp_Min'], line_width=1, color='green', legend_label='Min Temperature')
-                p.line(df.index, df['AirTemp_Max'], line_width=1, color='red', legend_label='Max Temperature')
-
-                # Display the plot
-                st.bokeh_chart(p, use_container_width=True)
-            else:
-                st.write("Temperature data is not available in the uploaded file.")
-        else:
-            st.write("Please upload a file.")
+            
+    
