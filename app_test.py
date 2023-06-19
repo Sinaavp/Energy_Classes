@@ -121,18 +121,13 @@ if uploaded_file is not None:
         else:
             st.write("Please upload a file.")
             
-if options == "Temperature":
-    if 'df' in locals():
-        st.subheader("Temperature Line Graph")
-        fig, ax = plt.subplots(figsize=(10, 6))
-        ax.plot(df.index, df['AirTemp_Average'], color='blue')
-        ax.set_xlabel("Date")
-        ax.set_ylabel("Average Temperature")
-        ax.set_title("Average Temperature Over Time")
-        ax.grid(True)
-        st.pyplot(fig)
-    else:
-        st.write("Please upload a file.")
+    if options == "Temperature":
+        if 'df' in locals():
+            st.subheader("Temperature Line Graph")
+            st.line_chart(df['AirTemp_Average'])
+        else:
+            st.write("Please upload a file.")
+
 
             
     
