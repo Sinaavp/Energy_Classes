@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import matplotlib.pyplot as plt
 from bokeh.plotting import figure
 from bokeh.models import ZoomInTool, ZoomOutTool
 from streamlit_bokeh_events import streamlit_bokeh_events
