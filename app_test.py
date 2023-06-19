@@ -43,12 +43,15 @@ if uploaded_file is not None:
     df['Day'] = df.index.day
     df['Average_Daily_Temp'] = df.groupby(['Year', 'Month', 'Day'])['AirTemp_Average'].transform('mean')
     df = df.dropna()
-
-    # Rest of the code...
 else:
     st.write("Please upload a file.")
+    
+if 'df' in locals():
+    df = df.dropna()
+    df["class_A"] = df.apply(lambda x: class_a(x["IntTemp_Instant"], x["Average_Daily_Temp"]), axis=1)
+    df["class_B"] = df.apply(lambda x: class_b(x["IntTemp_Instant"], x["Average_Daily_Temp"]), axis=1)
+    df["class_C"] = df.apply(lambda x: class_c(x["IntTemp_Instant"], x["Average_Daily_Temp"]), axis=1)
 
-# Temperature classification functions
 def class_a(IntTemp_Instant, Average_Daily_Temp):
     lower_limit = max(18.8 - 2 + 0.33 * Average_Daily_Temp, 21)
     upper_limit = max(18.8 + 2 + 0.33 * Average_Daily_Temp, 23)
@@ -75,10 +78,6 @@ def class_c(IntTemp_Instant, Average_Daily_Temp):
     else:
         return 0
     pass
-
-df["class_A"] = df.apply(lambda x: class_a(x["IntTemp_Instant"], x["Average_Daily_Temp"]), axis=1)
-df["class_B"] = df.apply(lambda x: class_b(x["IntTemp_Instant"], x["Average_Daily_Temp"]), axis=1)
-df["class_C"] = df.apply(lambda x: class_c(x["IntTemp_Instant"], x["Average_Daily_Temp"]), axis=1)
 
 def comfort():
     months = df['Month'].unique()
