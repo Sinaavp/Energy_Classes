@@ -110,13 +110,18 @@ if uploaded_file is not None:
 
             st.pyplot(fig)
 
-    if options == "Comfort EN":
-        if 'df' in locals():
-            df["class_A"] = df.apply(lambda x: class_a(x["IntTemp_Instant"], x["Average_Daily_Temp"]), axis=1)
-            df["class_B"] = df.apply(lambda x: class_b(x["IntTemp_Instant"], x["Average_Daily_Temp"]), axis=1)
-            df["class_C"] = df.apply(lambda x: class_c(x["IntTemp_Instant"], x["Average_Daily_Temp"]), axis=1)
-            comfort(df)
-        else:
-            st.write("Please upload a file.")
+if options == "Temperature":
+    if 'df' in locals():
+        st.subheader("Temperature Line Graph")
+        fig, ax = plt.subplots(figsize=(10, 6))
+        ax.plot(df.index, df['AirTemp_Average'], color='blue')
+        ax.set_xlabel("Date")
+        ax.set_ylabel("Average Temperature")
+        ax.set_title("Average Temperature Over Time")
+        ax.grid(True)
+        st.pyplot(fig)
+    else:
+        st.write("Please upload a file.")
+
             
     
