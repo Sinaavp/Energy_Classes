@@ -42,6 +42,7 @@ if uploaded_file is not None:
     df['Year'] = df.index.year
     df['Day'] = df.index.day
     df['Average_Daily_Temp'] = df.groupby(['Year', 'Month', 'Day'])['AirTemp_Average'].transform('mean')
+    df = df.dropna()
 
     # Rest of the code...
 else:
@@ -75,7 +76,6 @@ def class_c(IntTemp_Instant, Average_Daily_Temp):
         return 0
     pass
 
-df = df.dropna()
 df["class_A"] = df.apply(lambda x: class_a(x["IntTemp_Instant"], x["Average_Daily_Temp"]), axis=1)
 df["class_B"] = df.apply(lambda x: class_b(x["IntTemp_Instant"], x["Average_Daily_Temp"]), axis=1)
 df["class_C"] = df.apply(lambda x: class_c(x["IntTemp_Instant"], x["Average_Daily_Temp"]), axis=1)
