@@ -73,8 +73,8 @@ def class_c(IntTemp_Instant, Average_Daily_Temp):
     pass
 
 def comfort():
+    months = df['Month'].unique()
     for month in months:
-        months = df['Month'].unique()
         month_df = df[df['Month'] == month]
         length_class_a = month_df['class_A'].sum()
         length_class_b = month_df['class_B'].sum()
