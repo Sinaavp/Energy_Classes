@@ -1,7 +1,8 @@
 import streamlit as st
 import pandas as pd
-import matplotlib.pyplot as plt
-import mplcursors
+from bokeh.plotting import figure
+from bokeh.models import ZoomInTool, ZoomOutTool
+from streamlit_bokeh_events import streamlit_bokeh_events
 
 st.title("ENERGY LAB")
 st.sidebar.title("Navigation")
@@ -122,19 +123,28 @@ if uploaded_file is not None:
      
     if options == "Temperature":
         if 'df' in locals():
-            if ('AirTemp_Average') in df.columns:
+            if ('AirTemp', 'Average') in df.columns:
                 st.subheader("Temperature Line Graph")
-                fig, ax = plt.subplots(figsize=(10, 6))
-                ax.plot(df.index, df['AirTemp_Average'], color='blue')
-                ax.set_xlabel("Date")
-                ax.set_ylabel("Average Temperature")
-                ax.set_title("Average Temperature Over Time")
-                ax.grid(True)
-                mplcursors.cursor(hover=True).connect("add", lambda event: event.annotation.set_text(event.artist.get_label()))
-                mplcursors.cursor().connect("button_press_event", lambda event: event.canvas.zoom(event))
-                st.pyplot(fig)
+
+                # Create a Bokeh figure
+                p = figure(plot_width=800, plot_height=400, x_axis_type="datetime", title="Average Temperature Over Time")
+                p.line(df.index, df[('AirTemp', 'Average')], color='blue')
+
+                # Add zooming tools to the figure
+                zoom_in_tool = ZoomInTool()
+                zoom_out_tool = ZoomOutTool()
+                p.add_tools(zoom_in_tool, zoom_out_tool)
+
+                # Render the Bokeh figure and handle zoom events
+                result = streamlit_bokeh_events(figure=p, events="zoom")
+                if result:
+                    if "x_range" in result:
+                        p.x_range = result["x_range"]
+
+                # Display the Bokeh figure in Streamlit
+                st.bokeh_chart(p)
             else:
-                st.write("The column AirTemp_Average does not exist in the uploaded file.")
+                st.write("The column ('AirTemp', 'Average') does not exist in the uploaded file.")
         else:
             st.write("Please upload a file.")
     
