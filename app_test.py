@@ -8,40 +8,44 @@ options=st.sidebar.radio("pages", options=["Comfort EN", "Temperature", "Radiati
 uploaded_file = st.sidebar.file_uploader("Upload a file", type=["csv", "txt"])
 if uploaded_file is not None:
     df = pd.read_csv(uploaded_file, delimiter='\t', header=[0, 1])
-
-new_columns = [
-    ('AirTemp', 'Min'),
-    ('AirTemp', 'Average'),
-    ('AirTemp', 'Max'),
-    ('RelHumidity', 'Min'),
-    ('RelHumidity', 'Average'),
-    ('RelHumidity', 'Max'),
-    ('TGlobe', 'Min'),
-    ('TGlobe', 'Average'),
-    ('TGlobe', 'Max'),
-    ('WindSpeed', 'Min'),
-    ('WindSpeed', 'Average'),
-    ('WindSpeed', 'Max'),
-    ('WindDir', 'RisDir'),
-    ('WindDir', 'RisVel'),
-    ('WindDir', 'StdDevDir'),
-    ('WindDir', 'CalmPerc'),
-    ('GlobRad', 'Min'),
-    ('GlobRad', 'Average'),
-    ('GlobRad', 'Max'),
-    ('IntTemp', 'Instant'),
-    ('BatteryTens', 'Instant'),
-    ('x', 'x')
- ]
     
-df.columns = pd.MultiIndex.from_tuples(new_columns)
-df.drop(('x', 'x'), axis=1, inplace=True)
-df.columns = df.columns.map('_'.join)
-df.index = pd.to_datetime(df.index)
-df['Month'] = df.index.month_name()
-df['Year'] = df.index.year
-df['Day'] = df.index.day
-df['Average_Daily_Temp'] = df.groupby(['Year', 'Month', 'Day'])['AirTemp_Average'].transform('mean')
+    new_columns = [
+        ('AirTemp', 'Min'),
+        ('AirTemp', 'Average'),
+        ('AirTemp', 'Max'),
+        ('RelHumidity', 'Min'),
+        ('RelHumidity', 'Average'),
+        ('RelHumidity', 'Max'),
+        ('TGlobe', 'Min'),
+        ('TGlobe', 'Average'),
+        ('TGlobe', 'Max'),
+        ('WindSpeed', 'Min'),
+        ('WindSpeed', 'Average'),
+        ('WindSpeed', 'Max'),
+        ('WindDir', 'RisDir'),
+        ('WindDir', 'RisVel'),
+        ('WindDir', 'StdDevDir'),
+        ('WindDir', 'CalmPerc'),
+        ('GlobRad', 'Min'),
+        ('GlobRad', 'Average'),
+        ('GlobRad', 'Max'),
+        ('IntTemp', 'Instant'),
+        ('BatteryTens', 'Instant'),
+        ('x', 'x')
+    ]
+
+    df.columns = pd.MultiIndex.from_tuples(new_columns)
+    df.drop(('x', 'x'), axis=1, inplace=True)
+    df.columns = df.columns.map('_'.join)
+    df.index = pd.to_datetime(df.index)
+    df['Month'] = df.index.month_name()
+    df['Year'] = df.index.year
+    df['Day'] = df.index.day
+    df['Average_Daily_Temp'] = df.groupby(['Year', 'Month', 'Day'])['AirTemp_Average'].transform('mean')
+
+    # Rest of the code...
+else:
+    st.write("Please upload a file.")
 
 # Temperature classification functions
 def class_a(IntTemp_Instant, Average_Daily_Temp):
