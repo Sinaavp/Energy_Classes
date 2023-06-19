@@ -42,7 +42,6 @@ if uploaded_file is not None:
     df['Year'] = df.index.year
     df['Day'] = df.index.day
     df['Average_Daily_Temp'] = df.groupby(['Year', 'Month', 'Day'])['AirTemp_Average'].transform('mean')
-    months = df['Month'].unique()
 else:
     st.write("Please upload a file.")
     
@@ -75,6 +74,7 @@ def class_c(IntTemp_Instant, Average_Daily_Temp):
 
 def comfort():
     for month in months:
+        months = df['Month'].unique()
         month_df = df[df['Month'] == month]
         length_class_a = month_df['class_A'].sum()
         length_class_b = month_df['class_B'].sum()
@@ -113,6 +113,7 @@ def comfort():
         st.pyplot(fig)
         
 if options=="Comfort EN":
+    
     comfort()
 
 df["class_A"] = df.apply(lambda x: class_a(x["IntTemp_Instant"], x["Average_Daily_Temp"]), axis=1)
