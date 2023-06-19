@@ -129,6 +129,8 @@ if uploaded_file is not None:
                 ax.set_ylabel("Average Temperature")
                 ax.set_title("Average Temperature Over Time")
                 ax.grid(True)
+                mplcursors.cursor(hover=True).connect("add", lambda event: event.annotation.set_text(event.artist.get_label()))
+                mplcursors.cursor().connect("button_press_event", lambda event: event.canvas.zoom(event))
                 st.pyplot(fig)
             else:
                 st.write("The column AirTemp_Average does not exist in the uploaded file.")
