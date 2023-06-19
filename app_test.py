@@ -32,7 +32,7 @@ new_columns = [
     ('IntTemp', 'Instant'),
     ('BatteryTens', 'Instant'),
     ('x', 'x')
-    ]
+   ]
     
 df.columns = pd.MultiIndex.from_tuples(new_columns)
 df.drop(('x', 'x'), axis=1, inplace=True)
