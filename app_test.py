@@ -124,7 +124,8 @@ if uploaded_file is not None:
     if options == "Temperature":
         if 'df' in locals():
             st.subheader("Temperature Line Graph")
-            st.line_chart(df['AirTemp_Average'])
+            df_temp = df.reset_index()  # Resetting index to make it a column
+            st.line_chart(df_temp[['AirTemp_Average', 'index']])
         else:
             st.write("Please upload a file.")
 
