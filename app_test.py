@@ -122,11 +122,11 @@ if uploaded_file is not None:
             st.write("Please upload a file.")
             
     if options == "Temperature":
-    if 'df' in locals():
-        st.subheader("Temperature Line Graph")
-        st.line_chart(data=df, x=df.index, y='AirTemp_Average', width=20, height=10, use_container_width=True)
-    else:
-        st.write("Please upload a file.")
+        if 'df' in locals():
+            st.subheader("Temperature Line Graph")
+            st.line_chart(data=df, x=df.index, y='AirTemp_Average', width=20, height=10, use_container_width=True)
+        else:
+            st.write("Please upload a file.")
 
             
     
