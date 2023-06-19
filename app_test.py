@@ -110,7 +110,16 @@ if uploaded_file is not None:
                          verticalalignment='center', transform=ax2.transAxes)
 
             st.pyplot(fig)
-
+            
+    if options == "Comfort EN":
+        if 'df' in locals():
+            df["class_A"] = df.apply(lambda x: class_a(x["IntTemp_Instant"], x["Average_Daily_Temp"]), axis=1)
+            df["class_B"] = df.apply(lambda x: class_b(x["IntTemp_Instant"], x["Average_Daily_Temp"]), axis=1)
+            df["class_C"] = df.apply(lambda x: class_c(x["IntTemp_Instant"], x["Average_Daily_Temp"]), axis=1)
+            comfort(df)
+        else:
+            st.write("Please upload a file.")
+            
 if options == "Temperature":
     if 'df' in locals():
         st.subheader("Temperature Line Graph")
