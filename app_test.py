@@ -2,83 +2,87 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 
+st.title("ENERGY LAB")
+
 st.sidebar.title("Navigation")
-# File Upload
+
 uploaded_file = st.sidebar.file_uploader("Upload a file", type=["csv", "txt"])
 
+options=st.sidebar.radio("pages", options=["Comfort EN", "Temperature", "Radiation", "Relative humidity", "Interior Temperature"])
+
 if uploaded_file is not None:
-    # Read CSV file
-    df = pd.read_csv(uploaded_file, delimiter='\t', header=[0, 1])
-    
-    new_columns = [
-    ('AirTemp', 'Min'),
-    ('AirTemp', 'Average'),
-    ('AirTemp', 'Max'),
-    ('RelHumidity', 'Min'),
-    ('RelHumidity', 'Average'),
-    ('RelHumidity', 'Max'),
-    ('TGlobe', 'Min'),
-    ('TGlobe', 'Average'),
-    ('TGlobe', 'Max'),
-    ('WindSpeed', 'Min'),
-    ('WindSpeed', 'Average'),
-    ('WindSpeed', 'Max'),
-    ('WindDir', 'RisDir'),
-    ('WindDir', 'RisVel'),
-    ('WindDir', 'StdDevDir'),
-    ('WindDir', 'CalmPerc'),
-    ('GlobRad', 'Min'),
-    ('GlobRad', 'Average'),
-    ('GlobRad', 'Max'),
-    ('IntTemp', 'Instant'),
-    ('BatteryTens', 'Instant'),
-    ('x', 'x')
-    ]
-    
-    df.columns = pd.MultiIndex.from_tuples(new_columns)
-    df.drop(('x', 'x'), axis=1, inplace=True)
-    df.columns = df.columns.map('_'.join)
-    df.index = pd.to_datetime(df.index)
-    df['Month'] = df.index.month_name()
-    df['Year'] = df.index.year
-    df['Day'] = df.index.day
-    df['Average_Daily_Temp'] = df.groupby(['Year', 'Month', 'Day'])['AirTemp_Average'].transform('mean')
 
-    # Temperature classification functions
-    def class_a(IntTemp_Instant, Average_Daily_Temp):
-        lower_limit = max(18.8 - 2 + 0.33 * Average_Daily_Temp, 21)
-        upper_limit = max(18.8 + 2 + 0.33 * Average_Daily_Temp, 23)
-        if IntTemp_Instant >= lower_limit and IntTemp_Instant <= upper_limit:
-            return 1
-        else:
-            return 0
-        pass
+df = pd.read_csv(uploaded_file, delimiter='\t', header=[0, 1])
     
-    def class_b(IntTemp_Instant, Average_Daily_Temp):
-        lower_limit = max(18.8 - 3 + 0.33 * Average_Daily_Temp, 20)
-        upper_limit = max(18.8 + 3 + 0.33 * Average_Daily_Temp, 24)
-        if IntTemp_Instant >= lower_limit and IntTemp_Instant <= upper_limit:
-            return 1
-        else:
-            return 0
-        pass
+new_columns = [
+('AirTemp', 'Min'),
+('AirTemp', 'Average'),
+('AirTemp', 'Max'),
+('RelHumidity', 'Min'),
+('RelHumidity', 'Average'),
+('RelHumidity', 'Max'),
+('TGlobe', 'Min'),
+('TGlobe', 'Average'),
+('TGlobe', 'Max'),
+('WindSpeed', 'Min'),
+('WindSpeed', 'Average'),
+('WindSpeed', 'Max'),
+('WindDir', 'RisDir'),
+('WindDir', 'RisVel'),
+('WindDir', 'StdDevDir'),
+('WindDir', 'CalmPerc'),
+('GlobRad', 'Min'),
+('GlobRad', 'Average'),
+('GlobRad', 'Max'),
+('IntTemp', 'Instant'),
+('BatteryTens', 'Instant'),
+('x', 'x')
+]
     
-    def class_c(IntTemp_Instant, Average_Daily_Temp):
-        lower_limit = max(18.8 - 4 + 0.33 * Average_Daily_Temp, 19)
-        upper_limit = max(18.8 + 4 + 0.33 * Average_Daily_Temp, 25)
-        if IntTemp_Instant >= lower_limit and IntTemp_Instant <= upper_limit:
-            return 1
-        else:
-            return 0
-        pass
+df.columns = pd.MultiIndex.from_tuples(new_columns)
+df.drop(('x', 'x'), axis=1, inplace=True)
+df.columns = df.columns.map('_'.join)
+df.index = pd.to_datetime(df.index)
+df['Month'] = df.index.month_name()
+df['Year'] = df.index.year
+df['Day'] = df.index.day
+df['Average_Daily_Temp'] = df.groupby(['Year', 'Month', 'Day'])['AirTemp_Average'].transform('mean')
 
-    df = df.dropna()
-    df["class_A"] = df.apply(lambda x: class_a(x["IntTemp_Instant"], x["Average_Daily_Temp"]), axis=1)
-    df["class_B"] = df.apply(lambda x: class_b(x["IntTemp_Instant"], x["Average_Daily_Temp"]), axis=1)
-    df["class_C"] = df.apply(lambda x: class_c(x["IntTemp_Instant"], x["Average_Daily_Temp"]), axis=1)
+# Temperature classification functions
+def class_a(IntTemp_Instant, Average_Daily_Temp):
+    lower_limit = max(18.8 - 2 + 0.33 * Average_Daily_Temp, 21)
+    upper_limit = max(18.8 + 2 + 0.33 * Average_Daily_Temp, 23)
+    if IntTemp_Instant >= lower_limit and IntTemp_Instant <= upper_limit:
+        return 1
+    else:
+        return 0
+    pass
+    
+def class_b(IntTemp_Instant, Average_Daily_Temp):
+    lower_limit = max(18.8 - 3 + 0.33 * Average_Daily_Temp, 20)
+    upper_limit = max(18.8 + 3 + 0.33 * Average_Daily_Temp, 24)
+    if IntTemp_Instant >= lower_limit and IntTemp_Instant <= upper_limit:
+        return 1
+    else:
+        return 0
+    pass
+    
+def class_c(IntTemp_Instant, Average_Daily_Temp):
+    lower_limit = max(18.8 - 4 + 0.33 * Average_Daily_Temp, 19)
+    upper_limit = max(18.8 + 4 + 0.33 * Average_Daily_Temp, 25)
+    if IntTemp_Instant >= lower_limit and IntTemp_Instant <= upper_limit:
+        return 1
+    else:
+        return 0
+    pass
 
+df = df.dropna()
+df["class_A"] = df.apply(lambda x: class_a(x["IntTemp_Instant"], x["Average_Daily_Temp"]), axis=1)
+df["class_B"] = df.apply(lambda x: class_b(x["IntTemp_Instant"], x["Average_Daily_Temp"]), axis=1)
+df["class_C"] = df.apply(lambda x: class_c(x["IntTemp_Instant"], x["Average_Daily_Temp"]), axis=1)
+
+def comfort():
     months = df['Month'].unique()
-
     for month in months:
         month_df = df[df['Month'] == month]
         length_class_a = month_df['class_A'].sum()
@@ -114,5 +118,7 @@ if uploaded_file is not None:
         else:
             ax1.text(0.5, 0.5, 'NO COMFORT RANGE IN - {}'.format(month), horizontalalignment='center', verticalalignment='center', transform=ax1.transAxes)
             ax2.text(0.5, 0.5, 'NO COMFORT RANGE IN - {}'.format(month), horizontalalignment='center', verticalalignment='center', transform=ax2.transAxes)
-        
+            
         st.pyplot(fig)
+if options=="Comfort EN":
+    comfort()
