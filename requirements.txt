@@ -2,3 +2,4 @@ matplotlib
 pandas
 openpyxl
 bokeh
+streamlit-bokeh-events
