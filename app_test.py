@@ -72,7 +72,7 @@ def class_c(IntTemp_Instant, Average_Daily_Temp):
         return 0
     pass
 
-def comfort():
+def comfort(df):
     months = df['Month'].unique()
     for month in months:
         month_df = df[df['Month'] == month]
