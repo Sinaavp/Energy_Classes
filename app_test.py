@@ -43,6 +43,7 @@ if uploaded_file is not None:
     df['Day'] = df.index.day
     df['Average_Daily_Temp'] = df.groupby(['Year', 'Month', 'Day'])['AirTemp_Average'].transform('mean')
     df = df.dropna()
+    months = df['Month'].unique()
 else:
     st.write("Please upload a file.")
     
@@ -80,7 +81,6 @@ def class_c(IntTemp_Instant, Average_Daily_Temp):
     pass
 
 def comfort():
-    months = df['Month'].unique()
     for month in months:
         month_df = df[df['Month'] == month]
         length_class_a = month_df['class_A'].sum()
