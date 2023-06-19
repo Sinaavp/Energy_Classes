@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 st.sidebar.title("Navigation")
 # File Upload
-uploaded_file = st.file_uploader("Upload a file", type=["csv", "txt"])
+uploaded_file = st.sidebar.file_uploader("Upload a file", type=["csv", "txt"])
 
 if uploaded_file is not None:
     # Read CSV file
