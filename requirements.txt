@@ -1,4 +1,6 @@
 matplotlib
 pandas
 openpyxl
-mplcursors
+bokeh.plotting
+bokeh.models
+streamlit_bokeh_events
