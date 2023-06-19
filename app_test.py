@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 st.title("ENERGY LAB")
 st.sidebar.title("Navigation")
 options=st.sidebar.radio("pages", options=["Comfort EN", "Temperature", "Radiation", "Relative humidity", "Interior Temperature"])
-uploaded_file = st.sidebar.file_uploader("Upload a file", type=["csv", "txt"], default=None)
+uploaded_file = st.sidebar.file_uploader("Upload a file", type=["csv", "txt"])
 if uploaded_file is not None:
     df = pd.read_csv(uploaded_file, delimiter='\t', header=[0, 1])
 
