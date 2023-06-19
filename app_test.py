@@ -120,6 +120,6 @@ if uploaded_file is not None:
         st.write("Please upload a file.")
      
     if options == "Temperature":
-        print(df)
+        df
     
       
