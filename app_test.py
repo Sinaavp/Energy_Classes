@@ -10,29 +10,29 @@ if uploaded_file is not None:
     df = pd.read_csv(uploaded_file, delimiter='\t', header=[0, 1])
     
 new_columns = [
-('AirTemp', 'Min'),
-('AirTemp', 'Average'),
-('AirTemp', 'Max'),
-('RelHumidity', 'Min'),
-('RelHumidity', 'Average'),
-('RelHumidity', 'Max'),
-('TGlobe', 'Min'),
-('TGlobe', 'Average'),
-('TGlobe', 'Max'),
-('WindSpeed', 'Min'),
-('WindSpeed', 'Average'),
-('WindSpeed', 'Max'),
-('WindDir', 'RisDir'),
-('WindDir', 'RisVel'),
-('WindDir', 'StdDevDir'),
-('WindDir', 'CalmPerc'),
-('GlobRad', 'Min'),
-('GlobRad', 'Average'),
-('GlobRad', 'Max'),
-('IntTemp', 'Instant'),
-('BatteryTens', 'Instant'),
-('x', 'x')
-]
+    ('AirTemp', 'Min'),
+    ('AirTemp', 'Average'),
+    ('AirTemp', 'Max'),
+    ('RelHumidity', 'Min'),
+    ('RelHumidity', 'Average'),
+    ('RelHumidity', 'Max'),
+    ('TGlobe', 'Min'),
+    ('TGlobe', 'Average'),
+    ('TGlobe', 'Max'),
+    ('WindSpeed', 'Min'),
+    ('WindSpeed', 'Average'),
+    ('WindSpeed', 'Max'),
+    ('WindDir', 'RisDir'),
+    ('WindDir', 'RisVel'),
+    ('WindDir', 'StdDevDir'),
+    ('WindDir', 'CalmPerc'),
+    ('GlobRad', 'Min'),
+    ('GlobRad', 'Average'),
+    ('GlobRad', 'Max'),
+    ('IntTemp', 'Instant'),
+    ('BatteryTens', 'Instant'),
+    ('x', 'x')
+    ]
     
 df.columns = pd.MultiIndex.from_tuples(new_columns)
 df.drop(('x', 'x'), axis=1, inplace=True)
