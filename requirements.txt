@@ -1,5 +1,6 @@
 matplotlib
 pandas
+numpy
 openpyxl
 bokeh
 streamlit-bokeh-events
