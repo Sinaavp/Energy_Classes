@@ -34,12 +34,11 @@ if uploaded_file is not None:
         ('GlobRad', 'Average'),
         ('GlobRad', 'Max'),
         ('IntTemp', 'Instant'),
-        ('BatteryTens', 'Instant'),
-        ('x', 'x')
+        ('BatteryTens', 'Instant')
     ]
 
     df.columns = pd.MultiIndex.from_tuples(new_columns)
-    df.drop(('x', 'x'), axis=1, inplace=True)
+    df.drop(('IntTemp', 'Instant'), axis=1, inplace=True)
     df.columns = df.columns.map('_'.join)
     df.index = pd.to_datetime(df.index)
     df['Month'] = df.index.month_name()
@@ -71,49 +70,49 @@ if uploaded_file is not None:
         else:
             return 0
 
-def comfort(df):
-    months = df['Month'].unique()
-    for month in months:
-        month_df = df[df['Month'] == month]
-        length_class_a = month_df['class_A'].sum()
-        length_class_b = month_df['class_B'].sum()
-        length_class_c = month_df['class_C'].sum()
-        total_hours = len(month_df)
-        discomfort_percentage = ((total_hours - length_class_c) / total_hours) * 100
-        comfort_percentage = (length_class_c / total_hours) * 100
-        class_a_percentage = (length_class_a / total_hours) * 100
-        class_b_percentage = (length_class_b / total_hours) * 100
-        class_c_percentage = (length_class_c / total_hours) * 100
+    def comfort(df):
+        months = df['Month'].unique()
+        for month in months:
+            month_df = df[df['Month'] == month]
+            length_class_a = month_df['class_A'].sum()
+            length_class_b = month_df['class_B'].sum()
+            length_class_c = month_df['class_C'].sum()
+            total_hours = len(month_df)
+            discomfort_percentage = ((total_hours - length_class_c) / total_hours) * 100
+            comfort_percentage = (length_class_c / total_hours) * 100
+            class_a_percentage = (length_class_a / total_hours) * 100
+            class_b_percentage = (length_class_b / total_hours) * 100
+            class_c_percentage = (length_class_c / total_hours) * 100
 
-        fig, axs = plt.subplots(1, 2, figsize=(15, 7.5))
-        ax1, ax2 = axs
+            fig, axs = plt.subplots(1, 2, figsize=(15, 7.5))
+            ax1, ax2 = axs
 
-        labels1 = ['Class A', 'Class B', 'Class C']
-        sizes1 = [class_a_percentage, class_b_percentage, class_c_percentage]
-        labels2 = ['Comfort', 'Discomfort']
-        sizes2 = [comfort_percentage, discomfort_percentage]
-        colors2 = ['green', 'red']
+            labels1 = ['Class A', 'Class B', 'Class C']
+            sizes1 = [class_a_percentage, class_b_percentage, class_c_percentage]
+            labels2 = ['Comfort', 'Discomfort']
+            sizes2 = [comfort_percentage, discomfort_percentage]
+            colors2 = ['green', 'red']
 
-        if all(size != 0 for size in sizes1) and all(size != 0 for size in sizes2):
-            ax1.pie(sizes1, labels=None, autopct='%1.1f%%', startangle=90, pctdistance=0.85)
-            ax1.legend(labels1, loc='lower center')
-            ax1.axis('equal')
-            ax1.set_title('EN 15251 COMFORT HOURS - {}'.format(month))
-            centre_circle1 = plt.Circle((0, 0), 0.70, fc='white')
-            ax1.add_artist(centre_circle1)
-            ax2.pie(sizes2, labels=None, colors=colors2, autopct='%1.1f%%', startangle=90, pctdistance=0.85)
-            ax2.legend(labels2, loc='lower center')
-            ax2.axis('equal')
-            ax2.set_title('EN 15251 COMFORT VS DISCOMFORT - {}'.format(month))
-            centre_circle2 = plt.Circle((0, 0), 0.70, fc='white')
-            ax2.add_artist(centre_circle2)
-        else:
-            ax1.text(0.5, 0.5, 'NO COMFORT RANGE IN - {}'.format(month), horizontalalignment='center',
-                     verticalalignment='center', transform=ax1.transAxes)
-            ax2.text(0.5, 0.5, 'NO COMFORT RANGE IN - {}'.format(month), horizontalalignment='center',
-                     verticalalignment='center', transform=ax2.transAxes)
+            if all(size != 0 for size in sizes1) and all(size != 0 for size in sizes2):
+                ax1.pie(sizes1, labels=None, autopct='%1.1f%%', startangle=90, pctdistance=0.85)
+                ax1.legend(labels1, loc='lower center')
+                ax1.axis('equal')
+                ax1.set_title('EN 15251 COMFORT HOURS - {}'.format(month))
+                centre_circle1 = plt.Circle((0, 0), 0.70, fc='white')
+                ax1.add_artist(centre_circle1)
+                ax2.pie(sizes2, labels=None, colors=colors2, autopct='%1.1f%%', startangle=90, pctdistance=0.85)
+                ax2.legend(labels2, loc='lower center')
+                ax2.axis('equal')
+                ax2.set_title('EN 15251 COMFORT VS DISCOMFORT - {}'.format(month))
+                centre_circle2 = plt.Circle((0, 0), 0.70, fc='white')
+                ax2.add_artist(centre_circle2)
+            else:
+                ax1.text(0.5, 0.5, 'NO COMFORT RANGE IN - {}'.format(month), horizontalalignment='center',
+                         verticalalignment='center', transform=ax1.transAxes)
+                ax2.text(0.5, 0.5, 'NO COMFORT RANGE IN - {}'.format(month), horizontalalignment='center',
+                         verticalalignment='center', transform=ax2.transAxes)
 
-        st.pyplot(fig)
+            st.pyplot(fig)
 
     if options == "Comfort EN":
         if 'df' in locals():
@@ -121,34 +120,29 @@ def comfort(df):
             df["class_B"] = df.apply(lambda x: class_b(x["IntTemp_Instant"], x["Average_Daily_Temp"]), axis=1)
             df["class_C"] = df.apply(lambda x: class_c(x["IntTemp_Instant"], x["Average_Daily_Temp"]), axis=1)
             comfort(df)
-    else:
-        st.write("Please upload a file.")
-     
+        else:
+            st.write("Please upload a file.")
+
     if options == "Temperature":
         if 'df' in locals():
-            if ('AirTemp', 'Average') in df.columns:
+            if ('AirTemp_Average') in df.columns:
                 st.subheader("Temperature Line Graph")
 
                 # Create a Bokeh figure
-                p = figure(plot_width=800, plot_height=400, x_axis_type="datetime", title="Average Temperature Over Time")
-                p.line(df.index, df[('AirTemp', 'Average')], color='blue')
+                p = figure(title="Temperature Line Graph", x_axis_label='Date', y_axis_label='Temperature (°C)',
+                           plot_width=800, plot_height=400, x_axis_type='datetime')
+                p.add_tools(ZoomInTool(), ZoomOutTool())
 
-                # Add zooming tools to the figure
-                zoom_in_tool = ZoomInTool()
-                zoom_out_tool = ZoomOutTool()
-                p.add_tools(zoom_in_tool, zoom_out_tool)
+                # Plot the average temperature
+                p.line(df.index, df['AirTemp_Average'], line_width=2, color='blue', legend_label='Average Temperature')
 
-                # Render the Bokeh figure and handle zoom events
-                result = streamlit_bokeh_events(figure=p, events="zoom")
-                if result:
-                    if "x_range" in result:
-                        p.x_range = result["x_range"]
+                # Plot the minimum and maximum temperature
+                p.line(df.index, df['AirTemp_Min'], line_width=1, color='green', legend_label='Min Temperature')
+                p.line(df.index, df['AirTemp_Max'], line_width=1, color='red', legend_label='Max Temperature')
 
-                # Display the Bokeh figure in Streamlit
-                st.bokeh_chart(p)
+                # Display the plot
+                st.bokeh_chart(p, use_container_width=True)
             else:
-                st.write("The column ('AirTemp', 'Average') does not exist in the uploaded file.")
+                st.write("Temperature data is not available in the uploaded file.")
         else:
             st.write("Please upload a file.")
-    
-      
