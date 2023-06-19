@@ -120,6 +120,19 @@ if uploaded_file is not None:
         st.write("Please upload a file.")
      
     if options == "Temperature":
-        df
+        if 'df' in locals():
+            if ('AirTemp_Average') in df.columns:
+                st.subheader("Temperature Line Graph")
+                fig, ax = plt.subplots(figsize=(10, 6))
+                ax.plot(df.index, df['AirTemp_Average'], color='blue')
+                ax.set_xlabel("Date")
+                ax.set_ylabel("Average Temperature")
+                ax.set_title("Average Temperature Over Time")
+                ax.grid(True)
+                st.pyplot(fig)
+            else:
+                st.write("The column AirTemp_Average does not exist in the uploaded file.")
+        else:
+            st.write("Please upload a file.")
     
       
