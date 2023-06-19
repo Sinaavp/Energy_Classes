@@ -118,3 +118,14 @@ if uploaded_file is not None:
             comfort(df)
         else:
             st.write("Please upload a file.")
+            
+    if options== "Temperature":
+        x_axis = df.index
+        y_axis = [('AirTemp', 'Average')]
+        plt.plot(x_axis, y_axis)
+        plt.title('title name')
+        plt.xlabel('x_axis name')
+        plt.ylabel('y_axis name')
+        plt.show()
+    
+      
