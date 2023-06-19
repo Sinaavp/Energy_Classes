@@ -116,10 +116,8 @@ if uploaded_file is not None:
             df["class_B"] = df.apply(lambda x: class_b(x["IntTemp_Instant"], x["Average_Daily_Temp"]), axis=1)
             df["class_C"] = df.apply(lambda x: class_c(x["IntTemp_Instant"], x["Average_Daily_Temp"]), axis=1)
             comfort(df)
-        else:
-            st.write("Please upload a file.")
             
-    if options == "Temperature":
+    elif options == "Temperature":
         if 'df' in locals() and ('AirTemp', 'Average') in df.columns:
             x_axis = df.index
             y_axis = df[('AirTemp', 'Average')]
@@ -128,5 +126,7 @@ if uploaded_file is not None:
             plt.xlabel('Date')
             plt.ylabel('Average Temperature')
             st.pyplot()
+     else:
+        st.write("Please upload a file.")
     
       
