@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
+import mplcursors
 
 st.title("ENERGY LAB")
 st.sidebar.title("Navigation")
