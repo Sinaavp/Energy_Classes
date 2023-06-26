@@ -2,6 +2,7 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import plotly.express as px
 
 st.title("ENERGY LAB")
 st.sidebar.title("Navigation")
@@ -124,9 +125,9 @@ if uploaded_file is not None:
     if options == "Temperature":
         if 'df' in locals():
             st.subheader("Temperature Line Graph")
-            st.line_chart(df['AirTemp_Average'])
+            fig = px.line(df, x=df.index, y='AirTemp_Average')
+            st.plotly_chart(fig)
         else:
             st.write("Please upload a file.")
-
-            
+                
     
