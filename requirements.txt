@@ -4,3 +4,4 @@ numpy
 openpyxl
 bokeh
 streamlit-bokeh-events
+plotly
