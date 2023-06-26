@@ -129,5 +129,13 @@ if uploaded_file is not None:
             st.plotly_chart(fig)
         else:
             st.write("Please upload a file.")
+
+    if options == "Radiation":
+        if 'df' in locals():
+            st.subheader("Radiation Line Graph")
+            fig = px.line(df, x=df.index, y='GlobRad_Average')
+            st.plotly_chart(fig)
+        else:
+            st.write("Please upload a file.")
                 
     
