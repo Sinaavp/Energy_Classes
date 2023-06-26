@@ -137,5 +137,21 @@ if uploaded_file is not None:
             st.plotly_chart(fig)
         else:
             st.write("Please upload a file.")
+
+    if options == "Relative humidity":
+        if 'df' in locals():
+            st.subheader("Radiation Line Graph")
+            fig = px.line(df, x=df.index, y='RelHumidity_Average')
+            st.plotly_chart(fig)
+        else:
+            st.write("Please upload a file.")
+
+    if options == "Interior Temperature":
+        if 'df' in locals():
+            st.subheader("Radiation Line Graph")
+            fig = px.line(df, x=df.index, y='IntTemp_Instant')
+            st.plotly_chart(fig)
+        else:
+            st.write("Please upload a file.")
                 
     
