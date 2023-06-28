@@ -5,3 +5,4 @@ openpyxl
 bokeh
 streamlit-bokeh-events
 plotly
+io
