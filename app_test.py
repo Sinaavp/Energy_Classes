@@ -73,16 +73,30 @@ if uploaded_file is not None:
             return 0
     
     def main():
+        # Assuming the DataFrame `df` is defined here
+        df = pd.DataFrame({'Column 1': [1, 2, 3], 'Column 2': [4, 5, 6]})
+    
         st.title("DataFrame to Excel Conversion")
-        
+    
         # Display the DataFrame
         st.write("Original DataFrame:")
         st.dataframe(df)
-        
+    
         # Export DataFrame to Excel file
         if st.button("Export to Excel"):
-            df.to_excel("output.xlsx", index=False)
-            st.success("DataFrame exported to Excel successfully!")
+            # Create an in-memory Excel file
+            excel_data = BytesIO()
+            with pd.ExcelWriter(excel_data, engine='xlsxwriter') as writer:
+                df.to_excel(writer, sheet_name='Sheet1', index=False)
+            excel_data.seek(0)
+    
+            # Download button
+            st.download_button(
+                label="Download Excel file",
+                data=excel_data,
+                file_name="output.xlsx",
+                mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            )
     
     def comfort(df):
         months = df['Month'].unique()
