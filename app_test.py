@@ -70,7 +70,19 @@ if uploaded_file is not None:
             return 1
         else:
             return 0
-
+    
+    def main():
+        st.title("DataFrame to Excel Conversion")
+        
+        # Display the DataFrame
+        st.write("Original DataFrame:")
+        st.dataframe(df)
+        
+        # Export DataFrame to Excel file
+        if st.button("Export to Excel"):
+            df.to_excel("output.xlsx", index=False)
+            st.success("DataFrame exported to Excel successfully!")
+    
     def comfort(df):
         months = df['Month'].unique()
         for month in months:
@@ -155,11 +167,5 @@ if uploaded_file is not None:
             st.write("Please upload a file.")
                 
     if options == "Download excel file" and 'df' in locals():
-        excel_file = "output.xlsx"
-        df.to_excel(excel_file, index=False)
-        st.download_button(
-            label="Download Excel file",
-            data=excel_file,
-            file_name="output.xlsx",
-            mime="application/octet-stream",
-        )
+        main()
+
