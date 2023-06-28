@@ -155,11 +155,11 @@ if uploaded_file is not None:
             st.write("Please upload a file.")
                 
     if options == "Download excel file" and 'df' in locals():
-            excel_file = "output.xlsx"
-            df.to_excel(excel_file, index=False)
-            st.download_button(
-                label="Download Excel file",
-                data=excel_file,
-                file_name="output.xlsx",
-                mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-            )
+        excel_file = "output.xlsx"
+        df.to_excel(excel_file, index=False)
+        st.download_button(
+            label="Download Excel file",
+            data=excel_file,
+            file_name="output.xlsx",
+            mime="application/octet-stream",
+        )
