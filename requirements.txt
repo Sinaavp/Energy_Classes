@@ -5,4 +5,3 @@ openpyxl
 bokeh
 streamlit-bokeh-events
 plotly
-base64
