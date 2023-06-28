@@ -7,7 +7,7 @@ import plotly.express as px
 st.title("ENERGY LAB")
 st.sidebar.title("Navigation")
 uploaded_file = st.sidebar.file_uploader("Upload a file", type=["csv", "txt"])
-options = st.sidebar.radio("pages", options=["Comfort EN", "Temperature", "Radiation", "Relative humidity", "Interior Temperature"])
+options = st.sidebar.radio("pages", options=["Comfort EN", "Temperature", "Radiation", "Relative humidity", "Interior Temperature","Download excel file"])
 
 
 if uploaded_file is not None:
@@ -154,4 +154,12 @@ if uploaded_file is not None:
         else:
             st.write("Please upload a file.")
                 
-    
+    if options == "Download excel file" and 'df' in locals():
+            excel_file = "output.xlsx"
+            df.to_excel(excel_file, index=False)
+            st.download_button(
+                label="Download Excel file",
+                data=excel_file,
+                file_name="output.xlsx",
+                mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            )
