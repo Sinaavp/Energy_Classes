@@ -73,15 +73,9 @@ if uploaded_file is not None:
             return 0
     
     def main():
-        # Assuming the DataFrame `df` is defined here
-        df = pd.DataFrame({'Column 1': [1, 2, 3], 'Column 2': [4, 5, 6]})
-    
         st.title("DataFrame to Excel Conversion")
-    
-        # Display the DataFrame
         st.write("Original DataFrame:")
         st.dataframe(df)
-    
         # Export DataFrame to Excel file
         if st.button("Export to Excel"):
             # Create an in-memory Excel file
