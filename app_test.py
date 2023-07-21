@@ -106,30 +106,30 @@ if uploaded_file is not None:
             class_b_percentage = (length_class_b / total_hours) * 100
             class_c_percentage = (length_class_c / total_hours) * 100
     
-            fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15, 7.5))
-    
+            # Create bar chart for Class A, Class B, and Class C percentages
             labels1 = ['Class A', 'Class B', 'Class C']
             sizes1 = [class_a_percentage, class_b_percentage, class_c_percentage]
             if all(size != 0 for size in sizes1):
-                ax1.bar(labels1, sizes1, color=['blue', 'orange', 'green'])
-                ax1.set_title('EN 15251 COMFORT HOURS - {}'.format(month))
-                ax1.set_ylabel('Percentage')
+                fig1 = go.Figure(data=[go.Bar(x=labels1, y=sizes1, marker_color=['blue', 'orange', 'green'])])
+                fig1.update_layout(title='EN 15251 COMFORT HOURS - {}'.format(month),
+                                   yaxis_title='Percentage')
             else:
-                ax1.text(0.5, 0.5, 'NO COMFORT RANGE IN - {}'.format(month), horizontalalignment='center',
-                         verticalalignment='center', transform=ax1.transAxes)
+                fig1 = px.imshow([[0]], labels=dict(x="Class", y="Percentage"),
+                                 title='NO COMFORT RANGE IN - {}'.format(month))
     
+            # Create bar chart for Comfort and Discomfort percentages
             labels2 = ['Comfort', 'Discomfort']
             sizes2 = [comfort_percentage, discomfort_percentage]
-            colors2 = ['green', 'red']
             if all(size != 0 for size in sizes2):
-                ax2.bar(labels2, sizes2, color=colors2)
-                ax2.set_title('EN 15251 COMFORT VS DISCOMFORT - {}'.format(month))
-                ax2.set_ylabel('Percentage')
+                fig2 = go.Figure(data=[go.Bar(x=labels2, y=sizes2, marker_color=['green', 'red'])])
+                fig2.update_layout(title='EN 15251 COMFORT VS DISCOMFORT - {}'.format(month),
+                                   yaxis_title='Percentage')
             else:
-                ax2.text(0.5, 0.5, 'NO COMFORT RANGE IN - {}'.format(month), horizontalalignment='center',
-                         verticalalignment='center', transform=ax2.transAxes)
+                fig2 = px.imshow([[0]], labels=dict(x="Type", y="Percentage"),
+                                 title='NO COMFORT RANGE IN - {}'.format(month))
     
-            st.pyplot(fig)
+            st.plotly_chart(fig1)  # Display the first bar chart in Streamlit
+            st.plotly_chart(fig2)
             
     if options == "Comfort EN":
         if 'df' in locals():
