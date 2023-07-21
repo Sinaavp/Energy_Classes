@@ -6,3 +6,4 @@ bokeh
 streamlit-bokeh-events
 plotly
 xlsxwriter
+plotly.graph_objects
