@@ -92,6 +92,7 @@ if uploaded_file is not None:
                 mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
             )
     
+    
     def comfort(df):
         months = df['Month'].unique()
         for month in months:
@@ -102,35 +103,33 @@ if uploaded_file is not None:
             total_hours = len(month_df)
             discomfort_percentage = ((total_hours - length_class_c) / total_hours) * 100
             comfort_percentage = (length_class_c / total_hours) * 100
-            class_a_percentage = (length_class_a / total_hours) * 100
-            class_b_percentage = (length_class_b / total_hours) * 100
-            class_c_percentage = (length_class_c / total_hours) * 100
+    
+            # Check if any values are NaN or zero, and if so, set them to 0
+            class_a_percentage = class_a_percentage if pd.notnull(class_a_percentage) else 0
+            class_b_percentage = class_b_percentage if pd.notnull(class_b_percentage) else 0
+            class_c_percentage = class_c_percentage if pd.notnull(class_c_percentage) else 0
+            comfort_percentage = comfort_percentage if pd.notnull(comfort_percentage) else 0
+            discomfort_percentage = discomfort_percentage if pd.notnull(discomfort_percentage) else 0
     
             # Create bar chart for Class A, Class B, and Class C percentages
             labels1 = ['Class A', 'Class B', 'Class C']
             sizes1 = [class_a_percentage, class_b_percentage, class_c_percentage]
-            if all(size != 0 for size in sizes1):
-                fig1 = go.Figure(data=[go.Bar(x=labels1, y=sizes1, marker_color=['blue', 'orange', 'green'])])
-                fig1.update_layout(title='EN 15251 COMFORT HOURS - {}'.format(month),
-                                   yaxis_title='Percentage')
-            else:
-                fig1 = px.imshow([[0]], labels=dict(x="Class", y="Percentage"),
-                                 title='NO COMFORT RANGE IN - {}'.format(month))
+    
+            fig1 = go.Figure(data=[go.Bar(x=labels1, y=sizes1, marker_color=['blue', 'orange', 'green'])])
+            fig1.update_layout(title='EN 15251 COMFORT HOURS - {}'.format(month),
+                               yaxis_title='Percentage')
     
             # Create bar chart for Comfort and Discomfort percentages
             labels2 = ['Comfort', 'Discomfort']
             sizes2 = [comfort_percentage, discomfort_percentage]
-            if all(size != 0 for size in sizes2):
-                fig2 = go.Figure(data=[go.Bar(x=labels2, y=sizes2, marker_color=['green', 'red'])])
-                fig2.update_layout(title='EN 15251 COMFORT VS DISCOMFORT - {}'.format(month),
-                                   yaxis_title='Percentage')
-            else:
-                fig2 = px.imshow([[0]], labels=dict(x="Type", y="Percentage"),
-                                 title='NO COMFORT RANGE IN - {}'.format(month))
+    
+            fig2 = go.Figure(data=[go.Bar(x=labels2, y=sizes2, marker_color=['green', 'red'])])
+            fig2.update_layout(title='EN 15251 COMFORT VS DISCOMFORT - {}'.format(month),
+                               yaxis_title='Percentage')
     
             st.plotly_chart(fig1)  # Display the first bar chart in Streamlit
-            st.plotly_chart(fig2)
-            
+            st.plotly_chart(fig2)  # Display the second bar chart in Streamlit
+                
     if options == "Comfort EN":
         if 'df' in locals():
             df["class_A"] = df.apply(lambda x: class_a(x["IntTemp_Instant"], x["Average_Daily_Temp"]), axis=1)
