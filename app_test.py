@@ -106,7 +106,7 @@ if uploaded_file is not None:
             class_b_percentage = (length_class_b / total_hours) * 100
             class_c_percentage = (length_class_c / total_hours) * 100
     
-            fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15, 7.5))
+            fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 4))
     
             if all(size != 0 for size in [class_a_percentage, class_b_percentage, class_c_percentage]):
                 # Stacked Bar Chart for Class A, B, and C
