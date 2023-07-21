@@ -92,7 +92,6 @@ if uploaded_file is not None:
                 mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
             )
     
-    
     def comfort(df):
         months = df['Month'].unique()
         for month in months:
@@ -112,18 +111,18 @@ if uploaded_file is not None:
             if all(size != 0 for size in [class_a_percentage, class_b_percentage, class_c_percentage]):
                 # Stacked Bar Chart for Class A, B, and C
                 labels1 = ['Class A', 'Class B', 'Class C']
-                ax1.bar(month, class_a_percentage, label='Class A', color='blue')
-                ax1.bar(month, class_b_percentage, bottom=class_a_percentage, label='Class B', color='orange')
-                ax1.bar(month, class_c_percentage, bottom=class_a_percentage + class_b_percentage, label='Class C', color='green')
-                ax1.set_ylabel('Percentage')
+                ax1.barh(month, class_a_percentage, label='Class A', color='blue')
+                ax1.barh(month, class_b_percentage, left=class_a_percentage, label='Class B', color='orange')
+                ax1.barh(month, class_c_percentage, left=class_a_percentage + class_b_percentage, label='Class C', color='green')
+                ax1.set_xlabel('Percentage')
                 ax1.set_title('EN 15251 COMFORT HOURS - {}'.format(month))
                 ax1.legend()
     
                 # Stacked Bar Chart for Comfort and Discomfort
                 labels2 = ['Comfort', 'Discomfort']
-                ax2.bar(month, comfort_percentage, label='Comfort', color='green')
-                ax2.bar(month, discomfort_percentage, bottom=comfort_percentage, label='Discomfort', color='red')
-                ax2.set_ylabel('Percentage')
+                ax2.barh(month, comfort_percentage, label='Comfort', color='green')
+                ax2.barh(month, discomfort_percentage, left=comfort_percentage, label='Discomfort', color='red')
+                ax2.set_xlabel('Percentage')
                 ax2.set_title('EN 15251 COMFORT VS DISCOMFORT - {}'.format(month))
                 ax2.legend()
             else:
