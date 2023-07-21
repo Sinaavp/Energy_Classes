@@ -93,43 +93,43 @@ if uploaded_file is not None:
             )
     
     def comfort(df):
-    months = df['Month'].unique()
-    for month in months:
-        month_df = df[df['Month'] == month]
-        length_class_a = month_df['class_A'].sum()
-        length_class_b = month_df['class_B'].sum()
-        length_class_c = month_df['class_C'].sum()
-        total_hours = len(month_df)
-        discomfort_percentage = ((total_hours - length_class_c) / total_hours) * 100
-        comfort_percentage = (length_class_c / total_hours) * 100
-        class_a_percentage = (length_class_a / total_hours) * 100
-        class_b_percentage = (length_class_b / total_hours) * 100
-        class_c_percentage = (length_class_c / total_hours) * 100
-
-        fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15, 7.5))
-
-        labels1 = ['Class A', 'Class B', 'Class C']
-        sizes1 = [class_a_percentage, class_b_percentage, class_c_percentage]
-        if all(size != 0 for size in sizes1):
-            ax1.bar(labels1, sizes1, color=['blue', 'orange', 'green'])
-            ax1.set_title('EN 15251 COMFORT HOURS - {}'.format(month))
-            ax1.set_ylabel('Percentage')
-        else:
-            ax1.text(0.5, 0.5, 'NO COMFORT RANGE IN - {}'.format(month), horizontalalignment='center',
-                     verticalalignment='center', transform=ax1.transAxes)
-
-        labels2 = ['Comfort', 'Discomfort']
-        sizes2 = [comfort_percentage, discomfort_percentage]
-        colors2 = ['green', 'red']
-        if all(size != 0 for size in sizes2):
-            ax2.bar(labels2, sizes2, color=colors2)
-            ax2.set_title('EN 15251 COMFORT VS DISCOMFORT - {}'.format(month))
-            ax2.set_ylabel('Percentage')
-        else:
-            ax2.text(0.5, 0.5, 'NO COMFORT RANGE IN - {}'.format(month), horizontalalignment='center',
-                     verticalalignment='center', transform=ax2.transAxes)
-
-        st.pyplot(fig)
+        months = df['Month'].unique()
+        for month in months:
+            month_df = df[df['Month'] == month]
+            length_class_a = month_df['class_A'].sum()
+            length_class_b = month_df['class_B'].sum()
+            length_class_c = month_df['class_C'].sum()
+            total_hours = len(month_df)
+            discomfort_percentage = ((total_hours - length_class_c) / total_hours) * 100
+            comfort_percentage = (length_class_c / total_hours) * 100
+            class_a_percentage = (length_class_a / total_hours) * 100
+            class_b_percentage = (length_class_b / total_hours) * 100
+            class_c_percentage = (length_class_c / total_hours) * 100
+    
+            fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15, 7.5))
+    
+            labels1 = ['Class A', 'Class B', 'Class C']
+            sizes1 = [class_a_percentage, class_b_percentage, class_c_percentage]
+            if all(size != 0 for size in sizes1):
+                ax1.bar(labels1, sizes1, color=['blue', 'orange', 'green'])
+                ax1.set_title('EN 15251 COMFORT HOURS - {}'.format(month))
+                ax1.set_ylabel('Percentage')
+            else:
+                ax1.text(0.5, 0.5, 'NO COMFORT RANGE IN - {}'.format(month), horizontalalignment='center',
+                         verticalalignment='center', transform=ax1.transAxes)
+    
+            labels2 = ['Comfort', 'Discomfort']
+            sizes2 = [comfort_percentage, discomfort_percentage]
+            colors2 = ['green', 'red']
+            if all(size != 0 for size in sizes2):
+                ax2.bar(labels2, sizes2, color=colors2)
+                ax2.set_title('EN 15251 COMFORT VS DISCOMFORT - {}'.format(month))
+                ax2.set_ylabel('Percentage')
+            else:
+                ax2.text(0.5, 0.5, 'NO COMFORT RANGE IN - {}'.format(month), horizontalalignment='center',
+                         verticalalignment='center', transform=ax2.transAxes)
+    
+            st.pyplot(fig)
             
     if options == "Comfort EN":
         if 'df' in locals():
