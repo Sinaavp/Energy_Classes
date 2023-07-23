@@ -117,7 +117,7 @@ if uploaded_file is not None:
                 ax1.set_xlabel('Comfort calsses')
                 ax1.set_title('EN 15251 COMFORT HOURS - {}'.format(month))
                 ax1.legend()
-                for bar, v in zip(bars1, [class_a_percentage, class_b_percentage, class_c_percentage]):
+                for bar, v in zip([class_a_percentage, class_b_percentage, class_c_percentage]):
                     bar_width = bar.get_width()
                     bar_center_x = bar_width + 1
                     ax1.text(bar_width + 1, bar.get_y() + bar.get_height() / 2, f'{v:.1f}%', color='black', ha='left', va='center')
