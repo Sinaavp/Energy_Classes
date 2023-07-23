@@ -118,7 +118,8 @@ if uploaded_file is not None:
                 ax1.set_title('EN 15251 COMFORT HOURS - {}'.format(month))
                 ax1.legend()
                 for i, v in enumerate([class_a_percentage, class_b_percentage, class_c_percentage]):
-                    ax1.text(v + 1, i=0 , f'{v:.1f}%', color='black', va='center')
+                    bar_center_x = v / 2
+                    ax1.text(v + 1, i , f'{v:.1f}%', color='black', va='center')
                 
 
                 # Stacked Bar Chart for Comfort and Discomfort
