@@ -114,15 +114,17 @@ if uploaded_file is not None:
                 ax1.barh(month, class_a_percentage, label='Class A', color='blue')
                 ax1.barh(month, class_b_percentage, left=class_a_percentage, label='Class B', color='orange')
                 ax1.barh(month, class_c_percentage, left=class_a_percentage + class_b_percentage, label='Class C', color='green')
-                ax1.set_xlabel('Percentage')
+                ax1.set_xlabel('Comfort calsses')
                 ax1.set_title('EN 15251 COMFORT HOURS - {}'.format(month))
                 ax1.legend()
+                for i, v in enumerate([class_a_percentage, class_b_percentage, class_c_percentage]):
+                    ax1.text(v + 1, i, f'{v:.1f}%', color='black')
     
                 # Stacked Bar Chart for Comfort and Discomfort
                 labels2 = ['Comfort', 'Discomfort']
                 ax2.barh(month, comfort_percentage, label='Comfort', color='green')
                 ax2.barh(month, discomfort_percentage, left=comfort_percentage, label='Discomfort', color='red')
-                ax2.set_xlabel('Percentage')
+                ax2.set_xlabel('Comfort vs Discomfort')
                 ax2.set_title('EN 15251 COMFORT VS DISCOMFORT - {}'.format(month))
                 ax2.legend()
             else:
