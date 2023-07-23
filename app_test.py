@@ -121,6 +121,7 @@ if uploaded_file is not None:
                     bar_width = bar.get_width()
                     bar_center_x = bar_width + 1
                     ax1.text(bar_width + 1, bar.get_y() + bar.get_height() / 2, f'{v:.1f}%', color='black', ha='left', va='center')
+
                 
 
                 # Stacked Bar Chart for Comfort and Discomfort
