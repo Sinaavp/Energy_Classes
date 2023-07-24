@@ -111,9 +111,10 @@ if uploaded_file is not None:
             if all(size != 0 for size in [class_a_percentage, class_b_percentage, class_c_percentage]):
                 # Stacked Bar Chart for Class A, B, and C
                 labels1 = ['Class A', 'Class B', 'Class C']
-                bars = ax1.barh(idx, class_a_percentage, label='Class A', color='blue')
-                bars = ax1.barh(idx, class_b_percentage, left=class_a_percentage, label='Class B', color='orange')
-                bars = ax1.barh(idx, class_c_percentage, left=class_a_percentage + class_b_percentage, label='Class C', color='green')
+                sizes1 = [class_a_percentage, class_b_percentage, class_c_percentage]
+                bars = ax1.barh(sizes1, class_a_percentage, label='Class A', color='blue')
+                bars = ax1.barh(sizes1, class_b_percentage, left=class_a_percentage, label='Class B', color='orange')
+                bars = ax1.barh(sizes1, class_c_percentage, left=class_a_percentage + class_b_percentage, label='Class C', color='green')
                 ax1.set_xlabel('Comfort classes')
                 ax1.set_title('EN 15251 COMFORT HOURS - {}'.format(month))
                 ax1.legend(loc='upper center', bbox_to_anchor=(0.5, -0.1), ncol=3) 
