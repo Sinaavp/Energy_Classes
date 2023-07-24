@@ -116,10 +116,7 @@ if uploaded_file is not None:
                 bars = ax1.barh(month, class_c_percentage, left=class_a_percentage + class_b_percentage, label='Class C', color='green')
                 ax1.set_xlabel('Comfort classes')
                 ax1.set_title('EN 15251 COMFORT HOURS - {}'.format(month))
-                ax1.legend()
-                for bar, value in zip(bars, [length_class_a, length_class_b, length_class_c]):
-                    ax1.text(bar.get_x() + bar.get_width() / 2, bar.get_y() + bar.get_height() / 2,
-                             f'{value:.1f}', ha='center', va='center', color='white')
+                ax1.legend() 
                 
                 # Stacked Bar Chart for Comfort and Discomfort
                 labels2 = ['Comfort', 'Discomfort']
