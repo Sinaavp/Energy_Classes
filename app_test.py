@@ -122,8 +122,7 @@ if uploaded_file is not None:
                     x = bar.get_x() + bar.get_width() /2
                     y = bar.get_y() 
                     ax1.text(x, y, f"{label}: {value_a:.2f}%", ha='left', va='center', color='black', fontweight='bold')
-                    ax1.text(x, y, f"{label}: {value_b:.2f}%", ha='left', va='center', color='black', fontweight='bold')
-                    ax1.text(x, y, f"{label}: {value_c:.2f}%", ha='left', va='center', color='black', fontweight='bold')
+                    
                     
                     
                 
