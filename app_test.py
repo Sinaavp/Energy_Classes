@@ -111,7 +111,7 @@ if uploaded_file is not None:
             if all(size != 0 for size in [class_a_percentage, class_b_percentage, class_c_percentage]):
                 # Stacked Bar Chart for Class A, B, and C
                 labels1 = ['Class A', 'Class B', 'Class C']
-                sizes1 = [class_a_percentage, class_b_percentage, class_c_percentage]
+                sizes1 = 0
                 bars = ax1.barh(sizes1, class_a_percentage, label='Class A', color='blue')
                 bars = ax1.barh(sizes1, class_b_percentage, left=class_a_percentage, label='Class B', color='orange')
                 bars = ax1.barh(sizes1, class_c_percentage, left=class_a_percentage + class_b_percentage, label='Class C', color='green')
