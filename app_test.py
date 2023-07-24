@@ -118,9 +118,9 @@ if uploaded_file is not None:
                 ax1.set_title('EN 15251 COMFORT HOURS - {}'.format(month))
                 ax1.legend()
 
-            # Annotating the bars with percentage values
-            for bar, value in zip(bars, [class_a_percentage, class_b_percentage, class_c_percentage]):
-                ax1.text(value, bar.get_y() + bar.get_height() / 2, f"{value:.2f}%", ha='left', va='center', color='black', fontweight='bold')
+                # Annotating the bars with percentage values
+                for bar, value in zip(bars, [class_a_percentage, class_b_percentage, class_c_percentage]):
+                    ax1.text(value, bar.get_y() + bar.get_height() / 2, f"{value:.2f}%", ha='left', va='center', color='black', fontweight='bold')
 
                 
 
@@ -131,8 +131,7 @@ if uploaded_file is not None:
                 ax2.set_xlabel('Comfort vs Discomfort')
                 ax2.set_title('EN 15251 COMFORT VS DISCOMFORT - {}'.format(month))
                 ax2.legend()
-                ax1.set_xlim(0, 100)
-                ax2.set_xlim(0, 100)
+
             else:
                 ax1.text(0.5, 0.5, 'NO COMFORT RANGE IN - {}'.format(month), horizontalalignment='center',
                          verticalalignment='center', transform=ax1.transAxes)
