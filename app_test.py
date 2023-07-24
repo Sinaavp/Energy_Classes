@@ -117,9 +117,9 @@ if uploaded_file is not None:
                 ax1.set_xlabel('Comfort classes')
                 ax1.set_title('EN 15251 COMFORT HOURS - {}'.format(month))
                 ax1.legend() 
-                ax1.text(class_a_percentage, month, f'{length_class_a:.1f}', ha='right', va='center', color='white', fontsize=12, weight='bold')
-                ax1.text(class_a_percentage + class_b_percentage, month, f'{length_class_b:.1f}', ha='right', va='center', color='white', fontsize=12, weight='bold')
-                ax1.text(class_a_percentage + class_b_percentage + class_c_percentage, month, f'{length_class_c:.1f}', ha='right', va='center', color='white', fontsize=12, weight='bold')
+                ax1.text(class_a_percentage, month, ha='right', va='center', color='white', fontsize=12, weight='bold')
+                ax1.text(class_a_percentage + class_b_percentage, month, ha='right', va='center', color='white', fontsize=12, weight='bold')
+                ax1.text(class_a_percentage + class_b_percentage + class_c_percentage, month, ha='right', va='center', color='white', fontsize=12, weight='bold')
 
                 # Stacked Bar Chart for Comfort and Discomfort
                 labels2 = ['Comfort', 'Discomfort']
