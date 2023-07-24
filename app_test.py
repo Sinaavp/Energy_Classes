@@ -111,14 +111,17 @@ if uploaded_file is not None:
             if all(size != 0 for size in [class_a_percentage, class_b_percentage, class_c_percentage]):
                 # Stacked Bar Chart for Class A, B, and C
                 labels1 = ['Class A', 'Class B', 'Class C']
-                ax1.barh(month, class_a_percentage, label='Class A', color='blue')
+                bars = ax1.barh(month, class_a_percentage, label='Class A', color='blue')
                 ax1.barh(month, class_b_percentage, left=class_a_percentage, label='Class B', color='orange')
                 ax1.barh(month, class_c_percentage, left=class_a_percentage + class_b_percentage, label='Class C', color='green')
-                ax1.set_xlabel('Comfort calsses')
+                ax1.set_xlabel('Comfort classes')
                 ax1.set_title('EN 15251 COMFORT HOURS - {}'.format(month))
                 ax1.legend()
-                for i, v in enumerate([class_a_percentage, class_b_percentage, class_c_percentage]):
-                    ax1.text(v, i, f"{v:.2f}%", va='center', color='black', fontweight='bold')
+
+            # Annotating the bars with percentage values
+            for bar, value in zip(bars, [class_a_percentage, class_b_percentage, class_c_percentage]):
+                ax1.text(value, bar.get_y() + bar.get_height() / 2, f"{value:.2f}%", ha='left', va='center', color='black', fontweight='bold')
+
                 
 
                 # Stacked Bar Chart for Comfort and Discomfort
