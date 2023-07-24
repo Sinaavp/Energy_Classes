@@ -119,12 +119,12 @@ if uploaded_file is not None:
                 ax1.legend()
 
                 # Annotating the bars with percentage values
-                for bar, label, value_a, value_b, value_c in zip(bars, labels1, [class_a_percentage], [class_b_percentage], [class_c_percentage]):
-                    x = bar.get_x() 
-                    y = bar.get_y() 
-                    ax1.text(x, y, f"{label}: {value_a:.2f}%", ha='left', va='center', color='black', fontweight='bold')
-                    ax1.text(x, y, f"{label}: {value_b:.2f}%", ha='left', va='center', color='black', fontweight='bold')
-                    ax1.text(x, y, f"{label}: {value_c:.2f}%", ha='left', va='center', color='black', fontweight='bold')
+                for i, v in enumerate([class_a_percentage, class_b_percentage, class_c_percentage]):
+                    v = bar.get_x() 
+                    i = bar.get_y()
+                    ax1.text(v, i, f"{v:.2f}%", va='center', color='black', fontweight='bold')
+                    
+                    
                 
                 # Stacked Bar Chart for Comfort and Discomfort
                 labels2 = ['Comfort', 'Discomfort']
