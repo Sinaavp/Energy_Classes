@@ -117,7 +117,7 @@ if uploaded_file is not None:
                 ax1.set_xlabel('Comfort classes')
                 ax1.set_title('EN 15251 COMFORT HOURS - {}'.format(month))
                 ax1.legend()
-                for bar, label in zip(bars, labels1):
+                for label in  labels1:
                         width = bar.get_width()
                         ax1.annotate(f'{width:.1f}%', (width, bar.get_y() + bar.get_height() / 2),
                                      va='center', ha='left', xytext=(5, 0),
