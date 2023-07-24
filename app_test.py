@@ -118,12 +118,10 @@ if uploaded_file is not None:
                 ax1.set_title('EN 15251 COMFORT HOURS - {}'.format(month))
                 ax1.legend()
 
-                for bar, label, value_a, value_b, value_c in zip(bars, labels1, [class_a_percentage], [class_b_percentage], [class_c_percentage]):
-                    x = bar.get_x()+1
-                    y = bar.get_y()-1
-                    ax1.text(x, y, f"{label}: {value_a:.2f}%", ha='center', va='center', color='black', fontweight='bold')
-                    ax1.text(x, y, f"{label}: {value_b:.2f}%", ha='center', va='center', color='black', fontweight='bold')
-                    ax1.text(x, y, f"{label}: {value_c:.2f}%", ha='center', va='center', color='black', fontweight='bold')
+                for bar, label in zip(bars, labels1):
+                    width = bar.get_width()
+                    ax1.annotate(f'{label}: {width:.1f}%', xy=(width, bar.get_y() + bar.get_height() / 2),
+                                 xytext=(3, 0), textcoords='offset points', ha='left', va='center')
                     
                     
                 
