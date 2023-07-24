@@ -120,8 +120,6 @@ if uploaded_file is not None:
 
                 # Annotating the bars with percentage values
                 for i, v in enumerate([class_a_percentage, class_b_percentage, class_c_percentage]):
-                    v = bar.get_x() 
-                    i = bar.get_y()
                     ax1.text(v, i, f"{v:.2f}%", va='center', color='black', fontweight='bold')
                     
                     
