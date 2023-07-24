@@ -116,7 +116,7 @@ if uploaded_file is not None:
                 bars = ax1.barh(month,class_c_percentage, left=class_a_percentage + class_b_percentage, label='Class C', color='green')
                 ax1.set_xlabel('Comfort classes')
                 ax1.set_title('EN 15251 COMFORT HOURS - {}'.format(month))
-                ax1.legend() 
+                ax1.legend(loc='upper center', bbox_to_anchor=(0.5, -0.1), ncol=3) 
                 ax1.text(class_a_percentage/2 ,0, f'{class_a_percentage:.1f}%', ha='center', va='center', color='black', fontsize=12, weight='bold')
                 ax1.text((class_a_percentage + class_b_percentage / 2), 0 , f'{class_b_percentage:.1f}%', ha='center', va='center', color='black', fontsize=12, weight='bold')
                 ax1.text((class_a_percentage + class_b_percentage + class_c_percentage/2), 0 , f'{class_c_percentage:.1f}%', ha='center', va='center', color='black', fontsize=12, weight='bold')
