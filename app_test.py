@@ -122,7 +122,8 @@ if uploaded_file is not None:
                     x = bar.get_x()+1
                     y = bar.get_y()-1
                     ax1.text(x, y, f"{label}: {value_a:.2f}%", ha='center', va='center', color='black', fontweight='bold')
-                    
+                    ax1.text(x, y, f"{label}: {value_b:.2f}%", ha='center', va='center', color='black', fontweight='bold')
+                    ax1.text(x, y, f"{label}: {value_c:.2f}%", ha='center', va='center', color='black', fontweight='bold')
                     
                     
                 
