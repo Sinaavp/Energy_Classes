@@ -120,7 +120,7 @@ if uploaded_file is not None:
 
                 for bar, label in zip(bars, labels1):
                     width = bar.get_width()
-                    ax1.annotate(f'{label}: {width:.1f}%', xy=(width, bar.get_y() + bar.get_height() / 2),
+                    ax1.annotate(f'{label}: {width:.1f}%', xy=(width, bar.get_y() + bar.get_height() ),
                                  xytext=(0, 0), textcoords='offset points', ha='center', va='center')
                     
                     
