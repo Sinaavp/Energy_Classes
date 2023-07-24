@@ -121,6 +121,7 @@ if uploaded_file is not None:
                 ax1.text(class_a_percentage/2 ,0, f'{class_a_percentage:.1f}%', ha='center', va='center', color='black', fontsize=12, weight='bold')
                 ax1.text((class_a_percentage + class_b_percentage / 2), 0 , f'{class_b_percentage:.1f}%', ha='center', va='center', color='black', fontsize=12, weight='bold')
                 ax1.text((class_a_percentage + class_b_percentage + class_c_percentage/2), 0 , f'{class_c_percentage:.1f}%', ha='center', va='center', color='black', fontsize=12, weight='bold')
+                ax1.axis('off')
 
                 # Stacked Bar Chart for Comfort and Discomfort
                 labels2 = ['Comfort', 'Discomfort']
