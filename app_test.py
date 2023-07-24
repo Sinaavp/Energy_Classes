@@ -119,7 +119,7 @@ if uploaded_file is not None:
                 ax1.legend()
 
                 # Annotating the bars with percentage values
-                for bar, value in zip(bars):
+                for bar, value in bars:
                     ax1.text(value, bar.get_y() + bar.get_height() / 2, f"{value:.2f}%", ha='left', va='center', color='black', fontweight='bold')
 
                 
