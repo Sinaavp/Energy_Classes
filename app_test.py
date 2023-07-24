@@ -119,8 +119,8 @@ if uploaded_file is not None:
                 ax1.legend()
 
                for bar, label, value_a, value_b, value_c in zip(bars, labels1, [class_a_percentage], [class_b_percentage], [class_c_percentage]):
-                x = bar.get_x() + bar.get_width() /2
-                y = bar.get_y() 
+                    x = bar.get_x() + bar.get_width() /2
+                    y = bar.get_y() 
                     ax1.text(x, y, f"{label}: {value_a:.2f}%", ha='left', va='center', color='black', fontweight='bold')
                     ax1.text(x, y, f"{label}: {value_b:.2f}%", ha='left', va='center', color='black', fontweight='bold')
                     ax1.text(x, y, f"{label}: {value_c:.2f}%", ha='left', va='center', color='black', fontweight='bold')
