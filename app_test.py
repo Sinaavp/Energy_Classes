@@ -127,7 +127,7 @@ if uploaded_file is not None:
                 ax2.barh(month, discomfort_percentage, left=comfort_percentage, label='Discomfort', color='red')
                 ax2.set_xlabel('Comfort vs Discomfort')
                 ax2.set_title('EN 15251 COMFORT VS DISCOMFORT - {}'.format(month))
-                ax2.legend()
+                ax2.legend(loc=8)
 
             else:
                 ax1.text(0.5, 0.5, 'NO COMFORT RANGE IN - {}'.format(month), horizontalalignment='center',
