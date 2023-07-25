@@ -171,6 +171,9 @@ if uploaded_file is not None:
             )
         )
             st.plotly_chart(fig)
+        if 'df' in locals():
+            fig2 = go.Figure(data=go.Heatmap(z=[y], x=df.index, y='AirTemp_Average', colorscale='RdBu_r'))
+            st.plotly_chart(fig2)
         else:
             st.write("Please upload a file.")
 
