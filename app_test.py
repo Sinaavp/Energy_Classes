@@ -43,7 +43,7 @@ if uploaded_file is not None:
     df.columns = pd.MultiIndex.from_tuples(new_columns)
     df.drop(('x', 'x'), axis=1, inplace=True)
     df.columns = df.columns.map('_'.join)
-    df.index = pd.to_datetime(df.index)
+    df.index = pd.to_datetime()
     df['Month'] = df.index.month_name()
     df['Year'] = df.index.year
     df['Day'] = df.index.day
