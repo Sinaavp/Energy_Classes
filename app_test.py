@@ -130,6 +130,10 @@ if uploaded_file is not None:
                 ax2.set_xlabel('Comfort vs Discomfort')
                 ax2.set_title('EN 15251 COMFORT VS DISCOMFORT - {}'.format(month))
                 ax2.legend(loc='upper center', bbox_to_anchor=(0.5, -0.1), ncol=3)
+                ax2.text(comfort_percentage/2 ,0, f'{comfort_percentage:.1f}%', ha='center', va='center', color='black', fontsize=12, weight='bold')
+                ax2.text((comfort_percentage + discomfort_percentage / 2), 0 , f'{discomfort_percentage:.1f}%', ha='center', va='center', color='black', fontsize=12, weight='bold')
+                ax2.axis('off')
+
 
             else:
                 ax1.text(0.5, 0.5, 'NO COMFORT RANGE IN - {}'.format(month), horizontalalignment='center',
