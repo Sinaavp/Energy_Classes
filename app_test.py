@@ -156,6 +156,8 @@ if uploaded_file is not None:
         if 'df' in locals():
             st.subheader("Temperature Line Graph")
             fig = px.line(df, x=df.index, y='AirTemp_Average')
+            fig.update_xaxes(title_text='Date')
+            fig.update_yaxes(title_text='Temperature (°C)')
             fig.update_xaxes(
             rangeslider_visible=True,
             rangeselector=dict(
