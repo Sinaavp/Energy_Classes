@@ -48,6 +48,7 @@ if uploaded_file is not None:
     df['Month'] = df.index.month_name()
     df['Year'] = df.index.year
     df['Day'] = df.index.day
+    df['Hour']=df.index.hour
     df['Average_Daily_Temp'] = df.groupby(['Year', 'Month', 'Day'])['AirTemp_Average'].transform('mean')
     
 
