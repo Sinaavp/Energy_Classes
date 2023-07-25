@@ -173,7 +173,7 @@ if uploaded_file is not None:
         )
             st.plotly_chart(fig)
         if 'df' in locals():
-            fig2 = px.imshow(x=df.index ,y='AirTemp_Average', color_continuous_scale='RdBu_r', origin='lower')
+            fig2 = px.imshow(df, x='x', y='y', z='AirTemp_Average', color_continuous_scale='RdBu_r', origin='lower')
             st.plotly_chart(fig2)
         else:
             st.write("Please upload a file.")
