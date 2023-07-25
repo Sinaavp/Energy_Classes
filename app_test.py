@@ -49,6 +49,7 @@ if uploaded_file is not None:
     df['Day'] = df.index.day
     df['Hour'] = df.index.hour
     df['Average_Daily_Temp'] = df.groupby(['Year', 'Month', 'Day'])['AirTemp_Average'].transform('mean')
+    df['Average_Hourly_Temp'] = df.groupby(['Year', 'Month', 'Day', 'Hour'])['AirTemp_Average'].transform('mean')
 
     def class_a(IntTemp_Instant, Average_Daily_Temp):
         lower_limit = max(18.8 - 2 + 0.33 * Average_Daily_Temp, 21)
@@ -174,7 +175,7 @@ if uploaded_file is not None:
         )
             st.plotly_chart(fig)
         if 'df' in locals():
-             fig2 = go.Figure(data=go.Heatmap(x=df.index,y=df['Hour'],z=df['AirTemp_Average'], colorscale='RdBu_r'))
+             fig2 = go.Figure(data=go.Heatmap(x=df.index,y=df['Hour'], df['Average_Hourly_Temp'], colorscale='RdBu_r'))
              st.plotly_chart(fig2)
         else:
             st.write("Please upload a file.")
