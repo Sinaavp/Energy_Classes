@@ -50,6 +50,9 @@ if uploaded_file is not None:
     df['Hour'] = df.index.hour
     df['Average_Daily_Temp'] = df.groupby(['Year', 'Month', 'Day'])['AirTemp_Average'].transform('mean')
     df['Average_Hourly_Temp'] = df.groupby(['Year', 'Month', 'Day', 'Hour'])['AirTemp_Average'].transform('mean')
+    df.drop_duplicates(subset=['Hour', 'Average_Hourly_Temp'], keep='first', inplace=True)
+
+    
 
     def class_a(IntTemp_Instant, Average_Daily_Temp):
         lower_limit = max(18.8 - 2 + 0.33 * Average_Daily_Temp, 21)
