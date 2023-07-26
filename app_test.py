@@ -51,6 +51,8 @@ if uploaded_file is not None:
     df['Hour']=df.index.hour
     df['Average_Daily_Temp'] = df.groupby(['Year', 'Month', 'Day'])['AirTemp_Average'].transform('mean')
     df['Average_Hourly_Temp'] = df.groupby(['Year', 'Month', 'Day', 'Hour'])['AirTemp_Average'].transform('mean')
+    columns_to_check_duplicates = ['Date', 'Average_Hourly_Temp', 'Hour']
+    df=df.drop_duplicates(subset=columns_to_check_duplicates)
     
 
     def class_a(IntTemp_Instant, Average_Daily_Temp):
