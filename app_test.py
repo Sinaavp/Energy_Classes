@@ -181,7 +181,7 @@ if uploaded_file is not None:
         if 'df' in locals():
             columns_to_check_duplicates = ['Date', 'Average_Hourly_Temp', 'Hour']
             df=df.drop_duplicates(subset=columns_to_check_duplicates)
-            heatmap_data = df.pivot(index='Hour', columns='Date', values='Temperature')
+            heatmap_data = df.pivot(index=df['Hour'], columns=df['Date'], values=df['Temperature'])
             fig2 = go.Figure(data=go.Heatmap(z=heatmap_data.values,
                                 x=heatmap_data.columns,
                                 y=heatmap_data.index,
