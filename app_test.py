@@ -50,6 +50,7 @@ if uploaded_file is not None:
     df['Day'] = df.index.day
     df['Hour']=df.index.hour
     df['Average_Daily_Temp'] = df.groupby(['Year', 'Month', 'Day'])['AirTemp_Average'].transform('mean')
+    df['Average_Hourly_Temp'] = df.groupby(['Year', 'Month', 'Day', 'Hour'])['AirTemp_Average'].transform('mean')
     
 
     def class_a(IntTemp_Instant, Average_Daily_Temp):
