@@ -44,7 +44,7 @@ if uploaded_file is not None:
     df.drop(('x', 'x'), axis=1, inplace=True)
     df.columns = df.columns.map('_'.join)
     df.index = pd.to_datetime(df.index)
-    df['Date']= df.index.strftime('%Y-%m-%d %H')
+    df['Date']= df.index.strftime('%Y-%m-%d')
     df['Month'] = df.index.month_name()
     df['Year'] = df.index.year
     df['Day'] = df.index.day
