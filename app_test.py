@@ -80,40 +80,40 @@ if uploaded_file is not None:
             return 0
 
     def iso_class_a(IntTemp_Instant, Average_Daily_Temp):
-    lower_limit_winter = 21
-    upper_limit_winter = 23
-    lower_limit_summer = 23.5
-    upper_limit_summer = 25.5
-    if outside_temperature <=15 and lower_limit_winter <= inside_temperature <= upper_limit_winter:
-        return 1
-    elif outside_temperature > 15 and lower_limit_summer <= inside_temperature <= upper_limit_summer:
-        return 1
-    else:
-        return 0
+        lower_limit_winter = 21
+        upper_limit_winter = 23
+        lower_limit_summer = 23.5
+        upper_limit_summer = 25.5
+        if outside_temperature <=15 and lower_limit_winter <= inside_temperature <= upper_limit_winter:
+            return 1
+        elif outside_temperature > 15 and lower_limit_summer <= inside_temperature <= upper_limit_summer:
+            return 1
+        else:
+            return 0
 
     def iso_class_b(IntTemp_Instant, Average_Daily_Temp):
-    lower_limit_winter = 20
-    upper_limit_winter = 24
-    lower_limit_summer = 23
-    upper_limit_summer = 26
-    if outside_temperature <=15 and lower_limit_winter <= inside_temperature <= upper_limit_winter:
-        return 1
-    elif outside_temperature > 15 and lower_limit_summer <= inside_temperature <= upper_limit_summer:
-        return 1
-    else:
-        return 0
+        lower_limit_winter = 20
+        upper_limit_winter = 24
+        lower_limit_summer = 23
+        upper_limit_summer = 26
+        if outside_temperature <=15 and lower_limit_winter <= inside_temperature <= upper_limit_winter:
+            return 1
+        elif outside_temperature > 15 and lower_limit_summer <= inside_temperature <= upper_limit_summer:
+            return 1
+        else:
+            return 0
 
     def iso_class_c(IntTemp_Instant, Average_Daily_Temp):
-    lower_limit_winter = 19
-    upper_limit_winter = 25
-    lower_limit_summer = 22
-    upper_limit_summer = 27
-    if outside_temperature <=15 and lower_limit_winter <= inside_temperature <= upper_limit_winter:
-        return 1
-    elif outside_temperature > 15 and lower_limit_summer <= inside_temperature <= upper_limit_summer:
-        return 1
-    else:
-        return 0
+        lower_limit_winter = 19
+        upper_limit_winter = 25
+        lower_limit_summer = 22
+        upper_limit_summer = 27
+        if outside_temperature <=15 and lower_limit_winter <= inside_temperature <= upper_limit_winter:
+            return 1
+        elif outside_temperature > 15 and lower_limit_summer <= inside_temperature <= upper_limit_summer:
+            return 1
+        else:
+            return 0
     
     def main():
         st.title("DataFrame to Excel Conversion")
