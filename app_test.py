@@ -248,7 +248,7 @@ if uploaded_file is not None:
         if 'df' in locals():
             columns_to_check_duplicates = ['Date', 'Average_Hourly_Temp', 'Hour']
             df=df.drop_duplicates(subset=columns_to_check_duplicates)
-            fig2 = go.Figure(data=go.Heatmap(x=df['Date'] ,y=df['Hour'], z=df['Average_Hourly_RelHum'] , colorscale='ice'))                    
+            fig2 = go.Figure(data=go.Heatmap(x=df['Date'] ,y=df['Hour'], z=df['Average_Hourly_RelHum'] , colorscale='PuBu'))                    
             st.plotly_chart(fig2)   
         else:
             st.write("Please upload a file.")
