@@ -84,9 +84,9 @@ if uploaded_file is not None:
         upper_limit_winter = 23
         lower_limit_summer = 23.5
         upper_limit_summer = 25.5
-        if outside_temperature <=15 and lower_limit_winter <= inside_temperature <= upper_limit_winter:
+        if Average_Daily_Temp <=15 and lower_limit_winter <= IntTemp_Instant <= upper_limit_winter:
             return 1
-        elif outside_temperature > 15 and lower_limit_summer <= inside_temperature <= upper_limit_summer:
+        elif Average_Daily_Temp > 15 and lower_limit_summer <= IntTemp_Instant <= upper_limit_summer:
             return 1
         else:
             return 0
@@ -96,9 +96,9 @@ if uploaded_file is not None:
         upper_limit_winter = 24
         lower_limit_summer = 23
         upper_limit_summer = 26
-        if outside_temperature <=15 and lower_limit_winter <= inside_temperature <= upper_limit_winter:
+        if Average_Daily_Temp <=15 and lower_limit_winter <= IntTemp_Instant <= upper_limit_winter:
             return 1
-        elif outside_temperature > 15 and lower_limit_summer <= inside_temperature <= upper_limit_summer:
+        elif Average_Daily_Temp > 15 and lower_limit_summer <= IntTemp_Instant <= upper_limit_summer:
             return 1
         else:
             return 0
@@ -108,9 +108,9 @@ if uploaded_file is not None:
         upper_limit_winter = 25
         lower_limit_summer = 22
         upper_limit_summer = 27
-        if outside_temperature <=15 and lower_limit_winter <= inside_temperature <= upper_limit_winter:
+        if Average_Daily_Temp <=15 and lower_limit_winter <= IntTemp_Instant <= upper_limit_winter:
             return 1
-        elif outside_temperature > 15 and lower_limit_summer <= inside_temperature <= upper_limit_summer:
+        elif Average_Daily_Temp > 15 and lower_limit_summer <= IntTemp_Instant <= upper_limit_summer:
             return 1
         else:
             return 0
@@ -135,6 +135,57 @@ if uploaded_file is not None:
                 mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
             )
     
+    def comfort(df):
+        months = df['Month'].unique()
+        for month in months:
+            month_df = df[df['Month'] == month]
+            length_class_a = month_df['class_A'].sum()
+            length_class_b = month_df['class_B'].sum()
+            length_class_c = month_df['class_C'].sum()
+            total_hours = len(month_df)
+            discomfort_percentage = ((total_hours - length_class_c) / total_hours) * 100
+            comfort_percentage = (length_class_c / total_hours) * 100
+            class_a_percentage = (length_class_a / total_hours) * 100
+            class_b_percentage = (length_class_b / total_hours) * 100
+            class_c_percentage = (length_class_c / total_hours) * 100
+    
+            fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(20, 3))
+    
+            if all(size != 0 for size in [class_a_percentage, class_b_percentage, class_c_percentage]):
+                # Stacked Bar Chart for Class A, B, and C
+                labels1 = ['Class A', 'Class B', 'Class C']
+                sizes1 = 0
+                bars = ax1.barh(sizes1, class_a_percentage, label='Class A', color='blue')
+                bars = ax1.barh(sizes1, class_b_percentage, left=class_a_percentage, label='Class B', color='orange')
+                bars = ax1.barh(sizes1, class_c_percentage, left=class_a_percentage + class_b_percentage, label='Class C', color='green')
+                ax1.set_xlabel('Comfort classes')
+                ax1.set_title('EN 15251 COMFORT HOURS - {}'.format(month))
+                ax1.legend(loc='upper center', bbox_to_anchor=(0.5, -0.1), ncol=3) 
+                ax1.text(class_a_percentage/2 ,0, f'{class_a_percentage:.1f}%', ha='center', va='center', color='black', fontsize=12, weight='bold')
+                ax1.text((class_a_percentage + class_b_percentage / 2), 0 , f'{class_b_percentage:.1f}%', ha='center', va='center', color='black', fontsize=12, weight='bold')
+                ax1.text((class_a_percentage + class_b_percentage + class_c_percentage/2), 0 , f'{class_c_percentage:.1f}%', ha='center', va='center', color='black', fontsize=12, weight='bold')
+                ax1.axis('off')
+
+                # Stacked Bar Chart for Comfort and Discomfort
+                labels2 = ['Comfort', 'Discomfort']
+                ax2.barh(month, comfort_percentage, label='Comfort', color='green')
+                ax2.barh(month, discomfort_percentage, left=comfort_percentage, label='Discomfort', color='red')
+                ax2.set_xlabel('Comfort vs Discomfort')
+                ax2.set_title('EN 15251 COMFORT VS DISCOMFORT - {}'.format(month))
+                ax2.legend(loc='upper center', bbox_to_anchor=(0.5, -0.1), ncol=3)
+                ax2.text(comfort_percentage/2 ,0, f'{comfort_percentage:.1f}%', ha='center', va='center', color='black', fontsize=12, weight='bold')
+                ax2.text((comfort_percentage + discomfort_percentage / 2), 0 , f'{discomfort_percentage:.1f}%', ha='center', va='center', color='black', fontsize=12, weight='bold')
+                ax2.axis('off')
+
+
+            else:
+                ax1.text(0.5, 0.5, 'NO COMFORT RANGE IN - {}'.format(month), horizontalalignment='center',
+                         verticalalignment='center', transform=ax1.transAxes)
+                ax2.text(0.5, 0.5, 'NO COMFORT RANGE IN - {}'.format(month), horizontalalignment='center',
+                         verticalalignment='center', transform=ax2.transAxes)
+    
+            st.pyplot(fig)
+
     def comfort(df):
         months = df['Month'].unique()
         for month in months:
