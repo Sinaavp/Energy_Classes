@@ -9,7 +9,7 @@ from io import BytesIO
 st.title("ENERGY LAB")
 st.sidebar.title("Navigation")
 uploaded_file = st.sidebar.file_uploader("Upload a file", type=["csv", "txt"])
-options = st.sidebar.radio("pages", options=["Comfort EN", "Temperature", "Radiation", "Relative humidity", "Interior Temperature","Download excel file"])
+options = st.sidebar.radio("pages", options=["Comfort ISO","Comfort EN", "Temperature", "Radiation", "Relative humidity", "Interior Temperature","Download excel file"])
 
 
 if uploaded_file is not None:
@@ -78,6 +78,42 @@ if uploaded_file is not None:
             return 1
         else:
             return 0
+
+    def iso_class_a(IntTemp_Instant, Average_Daily_Temp):
+    lower_limit_winter = 21
+    upper_limit_winter = 23
+    lower_limit_summer = 23.5
+    upper_limit_summer = 25.5
+    if outside_temperature <=15 and lower_limit_winter <= inside_temperature <= upper_limit_winter:
+        return 1
+    elif outside_temperature > 15 and lower_limit_summer <= inside_temperature <= upper_limit_summer:
+        return 1
+    else:
+        return 0
+
+    def iso_class_b(IntTemp_Instant, Average_Daily_Temp):
+    lower_limit_winter = 20
+    upper_limit_winter = 24
+    lower_limit_summer = 23
+    upper_limit_summer = 26
+    if outside_temperature <=15 and lower_limit_winter <= inside_temperature <= upper_limit_winter:
+        return 1
+    elif outside_temperature > 15 and lower_limit_summer <= inside_temperature <= upper_limit_summer:
+        return 1
+    else:
+        return 0
+
+    def iso_class_c(IntTemp_Instant, Average_Daily_Temp):
+    lower_limit_winter = 19
+    upper_limit_winter = 25
+    lower_limit_summer = 22
+    upper_limit_summer = 27
+    if outside_temperature <=15 and lower_limit_winter <= inside_temperature <= upper_limit_winter:
+        return 1
+    elif outside_temperature > 15 and lower_limit_summer <= inside_temperature <= upper_limit_summer:
+        return 1
+    else:
+        return 0
     
     def main():
         st.title("DataFrame to Excel Conversion")
@@ -149,12 +185,22 @@ if uploaded_file is not None:
                          verticalalignment='center', transform=ax2.transAxes)
     
             st.pyplot(fig)
+
                 
     if options == "Comfort EN":
         if 'df' in locals():
             df["class_A"] = df.apply(lambda x: class_a(x["IntTemp_Instant"], x["Average_Daily_Temp"]), axis=1)
             df["class_B"] = df.apply(lambda x: class_b(x["IntTemp_Instant"], x["Average_Daily_Temp"]), axis=1)
             df["class_C"] = df.apply(lambda x: class_c(x["IntTemp_Instant"], x["Average_Daily_Temp"]), axis=1)
+            comfort(df)
+        else:
+            st.write("Please upload a file.")
+
+    if options == "Comfort ISO":
+        if 'df' in locals():
+            df["class_A"] = df.apply(lambda x: iso_class_a(x["IntTemp_Instant"], x["Average_Daily_Temp"]), axis=1)
+            df["class_B"] = df.apply(lambda x: iso_class_b(x["IntTemp_Instant"], x["Average_Daily_Temp"]), axis=1)
+            df["class_C"] = df.apply(lambda x: iso_class_c(x["IntTemp_Instant"], x["Average_Daily_Temp"]), axis=1)
             comfort(df)
         else:
             st.write("Please upload a file.")
