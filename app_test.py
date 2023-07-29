@@ -52,6 +52,7 @@ if uploaded_file is not None:
     df['Average_Daily_Temp'] = df.groupby(['Year', 'Month', 'Day'])['AirTemp_Average'].transform('mean')
     df['Average_Hourly_Temp'] = df.groupby(['Year', 'Month', 'Day', 'Hour'])['AirTemp_Average'].transform('mean')
     df['Average_Hourly_RelHum'] = df.groupby(['Year', 'Month', 'Day', 'Hour'])['RelHumidity_Average'].transform('mean')
+    df['Average_Hourly_Rad'] = df.groupby(['Year', 'Month', 'Day', 'Hour'])['GlobRad_Average'].transform('mean')
     
     
 
@@ -237,6 +238,11 @@ if uploaded_file is not None:
             st.subheader("Radiation Line Graph")
             fig = px.line(df, x=df.index, y='GlobRad_Average')
             st.plotly_chart(fig)
+        if 'df' in locals():
+            columns_to_check_duplicates = ['Date', 'Average_Hourly_Temp', 'Hour']
+            df=df.drop_duplicates(subset=columns_to_check_duplicates)
+            fig2 = go.Figure(data=go.Heatmap(x=df['Date'] ,y=df['Hour'], z=df['Average_Hourly_Rad'] , colorscale='Reds'))                    
+            st.plotly_chart(fig2) 
         else:
             st.write("Please upload a file.")
 
