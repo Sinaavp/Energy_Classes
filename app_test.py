@@ -51,7 +51,7 @@ if uploaded_file is not None:
     df['Hour']=df.index.hour
     df['Average_Daily_Temp'] = df.groupby(['Year', 'Month', 'Day'])['AirTemp_Average'].transform('mean')
     df['Average_Hourly_Temp'] = df.groupby(['Year', 'Month', 'Day', 'Hour'])['AirTemp_Average'].transform('mean')
-    
+    df['Average_Hourly_RelHum'] = df.groupby(['Year', 'Month', 'Day', 'Hour'])['RelHumidity_Average'].transform('mean')
     
     
 
@@ -186,58 +186,7 @@ if uploaded_file is not None:
     
             st.pyplot(fig)
 
-    def comfort(df):
-        months = df['Month'].unique()
-        for month in months:
-            month_df = df[df['Month'] == month]
-            length_class_a = month_df['class_A'].sum()
-            length_class_b = month_df['class_B'].sum()
-            length_class_c = month_df['class_C'].sum()
-            total_hours = len(month_df)
-            discomfort_percentage = ((total_hours - length_class_c) / total_hours) * 100
-            comfort_percentage = (length_class_c / total_hours) * 100
-            class_a_percentage = (length_class_a / total_hours) * 100
-            class_b_percentage = (length_class_b / total_hours) * 100
-            class_c_percentage = (length_class_c / total_hours) * 100
     
-            fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(20, 3))
-    
-            if all(size != 0 for size in [class_a_percentage, class_b_percentage, class_c_percentage]):
-                # Stacked Bar Chart for Class A, B, and C
-                labels1 = ['Class A', 'Class B', 'Class C']
-                sizes1 = 0
-                bars = ax1.barh(sizes1, class_a_percentage, label='Class A', color='blue')
-                bars = ax1.barh(sizes1, class_b_percentage, left=class_a_percentage, label='Class B', color='orange')
-                bars = ax1.barh(sizes1, class_c_percentage, left=class_a_percentage + class_b_percentage, label='Class C', color='green')
-                ax1.set_xlabel('Comfort classes')
-                ax1.set_title('EN 15251 COMFORT HOURS - {}'.format(month))
-                ax1.legend(loc='upper center', bbox_to_anchor=(0.5, -0.1), ncol=3) 
-                ax1.text(class_a_percentage/2 ,0, f'{class_a_percentage:.1f}%', ha='center', va='center', color='black', fontsize=12, weight='bold')
-                ax1.text((class_a_percentage + class_b_percentage / 2), 0 , f'{class_b_percentage:.1f}%', ha='center', va='center', color='black', fontsize=12, weight='bold')
-                ax1.text((class_a_percentage + class_b_percentage + class_c_percentage/2), 0 , f'{class_c_percentage:.1f}%', ha='center', va='center', color='black', fontsize=12, weight='bold')
-                ax1.axis('off')
-
-                # Stacked Bar Chart for Comfort and Discomfort
-                labels2 = ['Comfort', 'Discomfort']
-                ax2.barh(month, comfort_percentage, label='Comfort', color='green')
-                ax2.barh(month, discomfort_percentage, left=comfort_percentage, label='Discomfort', color='red')
-                ax2.set_xlabel('Comfort vs Discomfort')
-                ax2.set_title('EN 15251 COMFORT VS DISCOMFORT - {}'.format(month))
-                ax2.legend(loc='upper center', bbox_to_anchor=(0.5, -0.1), ncol=3)
-                ax2.text(comfort_percentage/2 ,0, f'{comfort_percentage:.1f}%', ha='center', va='center', color='black', fontsize=12, weight='bold')
-                ax2.text((comfort_percentage + discomfort_percentage / 2), 0 , f'{discomfort_percentage:.1f}%', ha='center', va='center', color='black', fontsize=12, weight='bold')
-                ax2.axis('off')
-
-
-            else:
-                ax1.text(0.5, 0.5, 'NO COMFORT RANGE IN - {}'.format(month), horizontalalignment='center',
-                         verticalalignment='center', transform=ax1.transAxes)
-                ax2.text(0.5, 0.5, 'NO COMFORT RANGE IN - {}'.format(month), horizontalalignment='center',
-                         verticalalignment='center', transform=ax2.transAxes)
-    
-            st.pyplot(fig)
-
-                
     if options == "Comfort EN":
         if 'df' in locals():
             df["class_A"] = df.apply(lambda x: class_a(x["IntTemp_Instant"], x["Average_Daily_Temp"]), axis=1)
@@ -296,6 +245,12 @@ if uploaded_file is not None:
             st.subheader("Radiation Line Graph")
             fig = px.line(df, x=df.index, y='RelHumidity_Average')
             st.plotly_chart(fig)
+        if 'df' in locals():
+            columns_to_check_duplicates = ['Date', 'Average_Hourly_Temp', 'Hour']
+            df=df.drop_duplicates(subset=columns_to_check_duplicates)
+            custom_colorscale = [[0.0, 'rgb(255, 255, 255)'],[1.0, 'rgb(0, 0, 255)']]
+            fig2 = go.Figure(data=go.Heatmap(x=df['Date'] ,y=df['Hour'], z=df['Average_Hourly_RelHum'] , colorscale='custom_colorscale'))                    
+            st.plotly_chart(fig2)   
         else:
             st.write("Please upload a file.")
 
