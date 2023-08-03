@@ -208,7 +208,7 @@ if uploaded_file is not None:
             
     if options == "Temperature":
         if 'df' in locals():
-            st.subheader("Temperature Line Graph")
+            st.subheader("Temperature")
             fig = px.line(df, x=df.index, y='AirTemp_Average')
             fig.update_xaxes(title_text='Date')
             fig.update_yaxes(title_text='Temperature (°C)')
@@ -235,7 +235,7 @@ if uploaded_file is not None:
 
     if options == "Radiation":
         if 'df' in locals():
-            st.subheader("Radiation Line Graph")
+            st.subheader("Radiation")
             fig = px.line(df, x=df.index, y='GlobRad_Average')
             fig.update_xaxes(title_text='Date')
             fig.update_yaxes(title_text='Radiation')
@@ -262,22 +262,22 @@ if uploaded_file is not None:
 
     if options == "Relative humidity":
         if 'df' in locals():
-            st.subheader("RELATIVE HUMIDITY")
+            st.subheader("Relative humidity")
             fig = px.line(df, x=df.index, y='RelHumidity_Average')
             fig.update_xaxes(title_text='Date')
             fig.update_yaxes(title_text='Relative humidity')
             fig.update_xaxes(
-            rangeslider_visible=True,
-            rangeselector=dict(
-                buttons=list([
-                    dict(count=1, label="1m", step="month", stepmode="backward"),
-                    dict(count=6, label="6m", step="month", stepmode="backward"),
-                    dict(count=1, label="YTD", step="year", stepmode="todate"),
-                    dict(count=1, label="1y", step="year", stepmode="backward"),
-                    dict(step="all")
-                ])
+                rangeslider_visible=True,
+                rangeselector=dict(
+                    buttons=list([
+                        dict(count=1, label="1m", step="month", stepmode="backward"),
+                        dict(count=6, label="6m", step="month", stepmode="backward"),
+                        dict(count=1, label="YTD", step="year", stepmode="todate"),
+                        dict(count=1, label="1y", step="year", stepmode="backward"),
+                        dict(step="all")
+                    ])
+                )
             )
-        )
             st.plotly_chart(fig)
         if 'df' in locals():
             columns_to_check_duplicates = ['Date', 'Average_Hourly_Temp', 'Hour']
@@ -289,8 +289,22 @@ if uploaded_file is not None:
 
     if options == "Interior Temperature":
         if 'df' in locals():
-            st.subheader("Radiation Line Graph")
+            st.subheader("Interior Temperature")
             fig = px.line(df, x=df.index, y='IntTemp_Instant')
+            fig.update_xaxes(title_text='Date')
+            fig.update_yaxes(title_text='Temperature (°C)')
+            fig.update_xaxes(
+                rangeslider_visible=True,
+                rangeselector=dict(
+                    buttons=list([
+                        dict(count=1, label="1m", step="month", stepmode="backward"),
+                        dict(count=6, label="6m", step="month", stepmode="backward"),
+                        dict(count=1, label="YTD", step="year", stepmode="todate"),
+                        dict(count=1, label="1y", step="year", stepmode="backward"),
+                        dict(step="all")
+                    ])
+                )
+            )
             st.plotly_chart(fig)
         else:
             st.write("Please upload a file.")
