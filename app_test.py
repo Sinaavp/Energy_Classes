@@ -190,6 +190,7 @@ if uploaded_file is not None:
     
     if options == "Comfort EN":
         if 'df' in locals():
+            st.subheader("Comfort EN")
             df["class_A"] = df.apply(lambda x: class_a(x["IntTemp_Instant"], x["Average_Daily_Temp"]), axis=1)
             df["class_B"] = df.apply(lambda x: class_b(x["IntTemp_Instant"], x["Average_Daily_Temp"]), axis=1)
             df["class_C"] = df.apply(lambda x: class_c(x["IntTemp_Instant"], x["Average_Daily_Temp"]), axis=1)
@@ -199,6 +200,7 @@ if uploaded_file is not None:
 
     if options == "Comfort ISO":
         if 'df' in locals():
+            st.subheader("Comfort ISO")
             df["class_A"] = df.apply(lambda x: iso_class_a(x["IntTemp_Instant"], x["Average_Daily_Temp"]), axis=1)
             df["class_B"] = df.apply(lambda x: iso_class_b(x["IntTemp_Instant"], x["Average_Daily_Temp"]), axis=1)
             df["class_C"] = df.apply(lambda x: iso_class_c(x["IntTemp_Instant"], x["Average_Daily_Temp"]), axis=1)
